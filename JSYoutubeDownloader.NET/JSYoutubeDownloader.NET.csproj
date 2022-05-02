@@ -8,8 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Icons\" />
+    <None Remove="Icons\dislike.png" />
+    <None Remove="Icons\like.png" />
+    <None Remove="Icons\search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\dislike.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\like.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Styles\" />
   </ItemGroup>
 
