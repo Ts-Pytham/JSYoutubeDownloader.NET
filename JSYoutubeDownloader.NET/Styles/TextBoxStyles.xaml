@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:JSYoutubeDownloader.NET.Styles">
+    <local:BoolToVisibilityConverter x:Key="InputToVisibility"/>
+    <Style TargetType="TextBox" x:Key="PlaceholderTextBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid>
+                            <TextBlock Text="Ingrese un URL" Foreground="White" 
+                                       VerticalAlignment="Center">
+                                <TextBlock.Visibility>
+                                    <MultiBinding Converter="{StaticResource InputToVisibility}">
+                                        <Binding ElementName="inputText" Path="Text.Length"/>
+                                        <Binding ElementName="inputText" Path="IsFocused"/>
+                                    </MultiBinding>
+                                </TextBlock.Visibility>
+                            </TextBlock>
+                            <TextBox x:Name="inputText" Background="Transparent" 
+                                     Foreground="White" VerticalContentAlignment="Center"
+                                     BorderThickness="0"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

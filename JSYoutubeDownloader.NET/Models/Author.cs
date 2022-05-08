@@ -15,5 +15,6 @@ internal class Author : IAuthor
         Name = name;
         Thumbnail = thumbnail;
         Subscribers = subscribers;
+        
     }
 }
