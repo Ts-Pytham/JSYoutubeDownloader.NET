@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodel="clr-namespace:JSYoutubeDownloader.NET.ViewModels" xmlns:styles="clr-namespace:JSYoutubeDownloader.NET.Styles"
         mc:Ignorable="d"
         Title="JSYoutubeDownloader.NET" Height="600" Width="900" Background="#181818">
-    <DockPanel>
+    <Window.Resources>
+        <viewmodel:MainWindowViewModel x:Key="MainWindowViewModel"/>
+    </Window.Resources>
+    <DockPanel DataContext="{Binding Source={StaticResource MainWindowViewModel}}">
         <Grid DockPanel.Dock="Top" Background="#202020" Height="100">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -14,11 +18,12 @@
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Style="{StaticResource PlaceholderTextBox}" Grid.Column="0" Foreground="White" Background="#121212" 
+            <TextBox Grid.Column="0" Foreground="White" Background="#121212" 
                      Height="40" Margin="20, 0, 0, 0" BorderBrush="#313131"
-                     VerticalContentAlignment="Center" FontFamily="Roboto" FontSize="16"/>
-
-            <Button Grid.Column="1" Height="40" Background="#313131" BorderBrush="#313131" Margin="0, 0, 15, 0">
+                     VerticalContentAlignment="Center" FontFamily="Roboto" FontSize="16" Text="{Binding Video.URL}"
+                     Style="{StaticResource PlaceholderTextBox}"/>
+            
+            <Button Grid.Column="1" Height="40" Background="#313131" BorderBrush="#313131" Margin="0, 0, 15, 0" Command="{Binding VideoInfoCommands}">
                 <Image Source="../Icons/search.png" Width="20"/>
             </Button>
 

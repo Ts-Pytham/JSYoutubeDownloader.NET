@@ -29,4 +29,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="YoutubeExplode" Version="6.1.2" />
+  </ItemGroup>
+
 </Project>

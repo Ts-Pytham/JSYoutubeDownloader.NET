@@ -19,7 +19,10 @@
                             </TextBlock>
                             <TextBox x:Name="inputText" Background="Transparent" 
                                      Foreground="White" VerticalContentAlignment="Center"
-                                     BorderThickness="0"/>
+                                     BorderThickness="0" Text="{Binding Path=Text,
+                                                RelativeSource={RelativeSource TemplatedParent}, 
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
