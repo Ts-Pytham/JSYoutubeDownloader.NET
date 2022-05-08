@@ -10,6 +10,7 @@
         <viewmodel:MainWindowViewModel x:Key="MainWindowViewModel"/>
     </Window.Resources>
     <DockPanel DataContext="{Binding Source={StaticResource MainWindowViewModel}}">
+        <ProgressBar DockPanel.Dock="Top" Height="2" Maximum="100" Minimum="1" IsIndeterminate="{Binding IsIndeterminate}" Foreground="Red" />
         <Grid DockPanel.Dock="Top" Background="#202020" Height="100">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -39,9 +40,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="1" Text="Hola" Background="{x:Null}" FontSize="14"
+            <TextBox Grid.Column="1" Text="{Binding Video.Description}" Background="{x:Null}" FontSize="14"
                      Foreground="White" FontFamily="Roboto" Margin="10, 0, 10, 10"
-                     VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+                     VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" IsReadOnly="True"/>
 
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
@@ -57,7 +58,7 @@
                 <Frame Background="Red"/>
 
                 <StackPanel Grid.Row="1"> <!-- Info del vídeo-->
-                    <TextBlock Text="Prueba" Foreground="White"
+                    <TextBlock Text="{Binding Video.Title}" Foreground="White"
                     FontFamily="Roboto" FontSize="16" Margin="0, 10, 0, 10" TextWrapping="Wrap"/>
 
                     <!-- Visitas, Likes y dislikes-->
@@ -75,17 +76,17 @@
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="100.000" Foreground="White" FontFamily="Roboto"
+                        <TextBlock Text="{Binding Video.Statistics.ViewCount}" Foreground="White" FontFamily="Roboto"
                                    VerticalAlignment="Center" Grid.Column="0"/>
 
                         <Image Source="../Icons/like.png" Width="20" Grid.Column="1"/>
 
-                        <TextBlock Text="50" Foreground="White" FontFamily="Roboto"
+                        <TextBlock Text="{Binding Video.Statistics.LikeCount}" Foreground="White" FontFamily="Roboto"
                                    VerticalAlignment="Center" Grid.Column="2"/>
                         
                         <Image Source="../Icons/dislike.png" Width="20" Grid.Column="3"/>
 
-                        <TextBlock Text="50" Foreground="White" FontFamily="Roboto"
+                        <TextBlock Text="{Binding Video.Statistics.DislikeCount}" Foreground="White" FontFamily="Roboto"
                                    VerticalAlignment="Center" Grid.Column="4"/>
 
                     </Grid> 
@@ -106,7 +107,7 @@
                         <Frame Background="Red"/> <!-- Image-->
 
                         <StackPanel Grid.Column="1" Margin="5, 0, 0, 0"> <!-- Author, Subs -->
-                            <TextBlock Text="Ts Pytham" Foreground="White" FontSize="16"
+                            <TextBlock Text="{Binding Video.Author.Name}" Foreground="White" FontSize="16"
                                        FontFamily="Roboto"/>
                             
                         </StackPanel>
@@ -116,5 +117,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
+
+        
     </DockPanel>
 </Window>

@@ -5,5 +5,5 @@ namespace JSYoutubeDownloader.NET.Services;
 
 internal interface IVideoInfoService
 {
-    Task<VideoInfo> GetVideoInfo();
+    Task<VideoInfo> GetVideoInfo(string URL);
 }

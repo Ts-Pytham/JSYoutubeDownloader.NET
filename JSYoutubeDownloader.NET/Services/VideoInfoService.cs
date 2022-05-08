@@ -1,12 +1,24 @@
 ﻿using JSYoutubeDownloader.NET.Models;
 using System.Threading.Tasks;
+using YoutubeExplode;
+using System;
 
 namespace JSYoutubeDownloader.NET.Services;
 
 internal class VideoInfoService : IVideoInfoService
 {
-    public Task<VideoInfo> GetVideoInfo()
+
+    public async Task<VideoInfo> GetVideoInfo(string URL)
     {
-        throw new System.NotImplementedException();
+        if (string.IsNullOrEmpty(URL))
+            throw new Exception("La URL está vacía");
+
+        YoutubeClient client = new();
+
+        var video = await client.Videos.GetAsync(URL);
+
+        VideoInfo info = video;
+        return info;
+        
     }
 }

@@ -31,6 +31,21 @@ internal class MainWindowViewModel : ViewModelBase
         }
     }
 
+    private bool _isIndeterminate;
+
+    public bool IsIndeterminate
+    {
+        get 
+        { 
+            return _isIndeterminate; 
+        }
+        set 
+        {
+            _isIndeterminate = value; 
+            OnPropertyChanged(); 
+        }
+    }
+
     #endregion
 
     #region Commands
@@ -42,11 +57,31 @@ internal class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         Video = new VideoInfo();
+        IsIndeterminate = false;
     }
 
     
     private async void VideoInfoCommandExecute(object commandParameter)
     {
+        try
+        {
+            IVideoInfoService service = new VideoInfoService();
+            IsIndeterminate = true;
+            Video = await service.GetVideoInfo(Video.URL);
+            
+        }
+        catch (ArgumentException)
+        {
+            MessageBox.Show("La URL ingresada no es correcta.");
+        }
+        catch (Exception)
+        {
+            MessageBox.Show("La URL está vacía");
+        }
+        finally
+        {
+            IsIndeterminate = false;
+        }
 
     }
 
