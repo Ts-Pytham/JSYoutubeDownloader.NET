@@ -98,8 +98,6 @@
                             <TextBlock Text="Ts Pytham" Foreground="White" FontSize="16"
                                        FontFamily="Roboto"/>
                             
-                            <TextBlock Text="1.000.000 subs" Foreground="White" FontSize="12"
-                                       FontFamily="Roboto"/>
                         </StackPanel>
                     </Grid>
                     

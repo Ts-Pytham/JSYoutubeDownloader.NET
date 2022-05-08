@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSYoutubeDownloader.NET.Models
+namespace JSYoutubeDownloader.NET.Styles
 {
-    internal class Video
+    internal class TextBoxEx
     {
     }
 }
