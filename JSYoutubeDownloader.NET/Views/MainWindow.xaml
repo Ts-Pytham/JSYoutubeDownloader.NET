@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewmodel="clr-namespace:JSYoutubeDownloader.NET.ViewModels" xmlns:styles="clr-namespace:JSYoutubeDownloader.NET.Styles" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewmodel="clr-namespace:JSYoutubeDownloader.NET.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="JSYoutubeDownloader.NET" Height="600" Width="900" Background="#181818"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         materialDesign:ThemeAssist.Theme="Dark">
     <Window.Resources>
         <viewmodel:MainWindowViewModel x:Key="MainWindowViewModel"/>
@@ -23,8 +26,8 @@
 
             <TextBox Grid.Column="0" Foreground="White" Background="#121212" 
                      Height="40" Margin="20, 0, 0, 0" BorderBrush="#313131"
-                     VerticalContentAlignment="Center" FontFamily="Roboto" FontSize="16" Text="{Binding Video.URL}"
-                     Style="{StaticResource PlaceholderTextBox}"/>
+                     VerticalContentAlignment="Center" FontSize="16" Text="{Binding Video.URL}"
+                     materialDesign:HintAssist.Hint="Buscar" Cursor="Arrow"/>
             
             <Button Grid.Column="1" Height="40" Background="#313131" BorderBrush="#313131" Margin="0, 0, 15, 0" Command="{Binding VideoInfoCommands}">
                 <Image Source="../Icons/search.png" Width="20"/>
@@ -43,7 +46,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Grid.Column="1" Text="{Binding Video.Description}" Background="{x:Null}" FontSize="14"
-                     Foreground="White" FontFamily="Roboto" Margin="10, 0, 10, 10"
+                     Foreground="White" Margin="10, 0, 10, 10"
                      VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" IsReadOnly="True"
                      Style="{DynamicResource MaterialDesignOutlinedTextBox}" Cursor="Arrow"/>
 
@@ -79,17 +82,17 @@
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="{Binding Video.Statistics.ViewCount}" Foreground="White" FontFamily="Roboto"
+                        <TextBlock Text="{Binding Video.Statistics.ViewCount}"
                                    VerticalAlignment="Center" Grid.Column="0"/>
 
                         <Image Source="../Icons/like.png" Width="20" Grid.Column="1"/>
 
-                        <TextBlock Text="{Binding Video.Statistics.LikeCount}" Foreground="White" FontFamily="Roboto"
+                        <TextBlock Text="{Binding Video.Statistics.LikeCount}"
                                    VerticalAlignment="Center" Grid.Column="2"/>
                         
                         <Image Source="../Icons/dislike.png" Width="20" Grid.Column="3"/>
 
-                        <TextBlock Text="{Binding Video.Statistics.DislikeCount}" Foreground="White" FontFamily="Roboto"
+                        <TextBlock Text="{Binding Video.Statistics.DislikeCount}"
                                    VerticalAlignment="Center" Grid.Column="4"/>
 
                     </Grid> 
@@ -110,8 +113,8 @@
                         <Frame Background="Red"/> <!-- Image-->
 
                         <StackPanel Grid.Column="1" Margin="5, 0, 0, 0"> <!-- Author, Subs -->
-                            <TextBlock Text="{Binding Video.Author.Name}" Foreground="White" FontSize="16"
-                                       FontFamily="Roboto"/>
+                            <TextBlock Text="{Binding Video.Author.Name}" FontSize="16"
+                                       />
                             
                         </StackPanel>
                     </Grid>

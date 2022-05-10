@@ -4,6 +4,7 @@ namespace JSYoutubeDownloader.NET.Models;
 
 internal class Author : IAuthor
 {
+
     public string Name { get; }
 
     public string Thumbnail { get; }
@@ -12,5 +13,11 @@ internal class Author : IAuthor
     {
         Name = name;
         Thumbnail = thumbnail;     
+    }
+
+    public Author(YoutubeExplode.Common.Author author)
+    {
+        Name = author.ChannelTitle;
+        Thumbnail = author.ChannelTitle;
     }
 }

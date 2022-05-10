@@ -72,7 +72,9 @@ internal class MainWindowViewModel : ViewModelBase
         }
         catch (ArgumentException)
         {
-            MessageBox.Show("La URL ingresada no es correcta.");
+            IVideoInfoService service = new VideoInfoService();
+            IsIndeterminate = true;
+            Video = (await service.GetVideosInfo(Video.URL))[0];
         }
         catch (Exception)
         {
