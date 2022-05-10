@@ -4,6 +4,7 @@ using YoutubeExplode;
 using System;
 using System.Collections.Generic;
 using YoutubeExplode.Common;
+using Author = JSYoutubeDownloader.NET.Models.Author;
 
 namespace JSYoutubeDownloader.NET.Services;
 
@@ -18,8 +19,9 @@ internal class VideoInfoService : IVideoInfoService
         YoutubeClient client = new();
 
         var video = await client.Videos.GetAsync(URL);
-
+        var channel = await client.Channels.GetAsync(video.Author.ChannelId);
         VideoInfo info = video;
+        info.Author = new Author(channel);
         return info;
         
     }
@@ -33,7 +35,9 @@ internal class VideoInfoService : IVideoInfoService
         foreach(var result in results)
         {
             var video = await client.Videos.GetAsync(result.Url);
+            var channel = await client.Channels.GetAsync(video.Author.ChannelId);
             VideoInfo info = video;
+            info.Author = new Author(channel);
             videosInfo.Add(info);
         }
 

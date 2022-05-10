@@ -61,7 +61,7 @@
 
                 </Grid.RowDefinitions>
 
-                <Frame Background="Red"/>
+                <Image Source="{Binding Video.Thumbnail}" Stretch="Fill"/>
 
                 <StackPanel Grid.Row="1"> <!-- Info del vídeo-->
                     <TextBlock Text="{Binding Video.Title}" Foreground="White"
@@ -110,7 +110,7 @@
                             <RowDefinition Height="100"/>
                         </Grid.RowDefinitions>
 
-                        <Frame Background="Red"/> <!-- Image-->
+                        <Image Source="{Binding Video.Author.Thumbnail}"/> <!-- Image-->
 
                         <StackPanel Grid.Column="1" Margin="5, 0, 0, 0"> <!-- Author, Subs -->
                             <TextBlock Text="{Binding Video.Author.Name}" FontSize="16"

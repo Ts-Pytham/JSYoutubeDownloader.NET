@@ -42,12 +42,14 @@ internal class VideoInfo : IVideoInfo
 
     public static implicit operator VideoInfo(Video v)
     {
-        VideoInfo video = new(v.Url,
-                              v.Title,
-                              v.Description,
-                              new Author(v.Author.ChannelTitle, v.Author.ChannelId.Value),
-                              v.Thumbnails[0].Url,
-                              new Statistics(v.Engagement.ViewCount, v.Engagement.LikeCount, v.Engagement.DislikeCount));
+        VideoInfo video = new()
+        {
+            URL = v.Url,
+            Title = v.Title,
+            Description = v.Description,
+            Thumbnail = v.Thumbnails[4].Url,
+            Statistics = new Statistics(v.Engagement.ViewCount, v.Engagement.LikeCount, v.Engagement.DislikeCount)
+        };
         return video;
     }
 }

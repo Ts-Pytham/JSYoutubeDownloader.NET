@@ -15,9 +15,10 @@ internal class Author : IAuthor
         Thumbnail = thumbnail;     
     }
 
-    public Author(YoutubeExplode.Common.Author author)
+    public Author(YoutubeExplode.Channels.Channel channel)
     {
-        Name = author.ChannelTitle;
-        Thumbnail = author.ChannelTitle;
+        Name = channel.Title;
+        Thumbnail = channel.Thumbnails[0].Url;
     }
+
 }
