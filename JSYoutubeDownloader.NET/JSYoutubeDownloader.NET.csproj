@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.0-ci172" />
     <PackageReference Include="YoutubeExplode" Version="6.1.2" />
   </ItemGroup>
 

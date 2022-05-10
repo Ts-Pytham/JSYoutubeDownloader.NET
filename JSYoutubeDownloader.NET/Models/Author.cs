@@ -8,13 +8,9 @@ internal class Author : IAuthor
 
     public string Thumbnail { get; }
 
-    public long Subscribers { get; }
-
-    public Author(string name, string thumbnail, long subscribers)
+    public Author(string name, string thumbnail)
     {
         Name = name;
-        Thumbnail = thumbnail;
-        Subscribers = subscribers;
-        
+        Thumbnail = thumbnail;     
     }
 }

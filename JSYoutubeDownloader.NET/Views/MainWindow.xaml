@@ -3,13 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewmodel="clr-namespace:JSYoutubeDownloader.NET.ViewModels" xmlns:styles="clr-namespace:JSYoutubeDownloader.NET.Styles"
+        xmlns:viewmodel="clr-namespace:JSYoutubeDownloader.NET.ViewModels" xmlns:styles="clr-namespace:JSYoutubeDownloader.NET.Styles" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="JSYoutubeDownloader.NET" Height="600" Width="900" Background="#181818">
+        Title="JSYoutubeDownloader.NET" Height="600" Width="900" Background="#181818"
+        materialDesign:ThemeAssist.Theme="Dark">
     <Window.Resources>
         <viewmodel:MainWindowViewModel x:Key="MainWindowViewModel"/>
     </Window.Resources>
     <DockPanel DataContext="{Binding Source={StaticResource MainWindowViewModel}}">
+
         <ProgressBar DockPanel.Dock="Top" Height="2" Maximum="100" Minimum="1" IsIndeterminate="{Binding IsIndeterminate}" Foreground="Red" />
         <Grid DockPanel.Dock="Top" Background="#202020" Height="100">
             <Grid.ColumnDefinitions>
@@ -42,7 +44,8 @@
 
             <TextBox Grid.Column="1" Text="{Binding Video.Description}" Background="{x:Null}" FontSize="14"
                      Foreground="White" FontFamily="Roboto" Margin="10, 0, 10, 10"
-                     VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" IsReadOnly="True"/>
+                     VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" IsReadOnly="True"
+                     Style="{DynamicResource MaterialDesignOutlinedTextBox}" Cursor="Arrow"/>
 
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>

@@ -35,7 +35,7 @@ internal class VideoInfo : IVideoInfo
         URL = "";
         Title = "";
         Description = "";
-        Author = new Author("", "", 0);
+        Author = new Author("", "");
         Thumbnail = "";
         Statistics = new Statistics(0, 0, 0);
     }
@@ -45,10 +45,9 @@ internal class VideoInfo : IVideoInfo
         VideoInfo video = new(v.Url,
                               v.Title,
                               v.Description,
-                              new Author(v.Author.ChannelTitle, v.Author.ChannelId.Value, 0),
+                              new Author(v.Author.ChannelTitle, v.Author.ChannelId.Value),
                               v.Thumbnails[0].Url,
-                              new Statistics(v.Engagement.ViewCount, v.Engagement.LikeCount, v.Engagement.DislikeCount)
-            );
+                              new Statistics(v.Engagement.ViewCount, v.Engagement.LikeCount, v.Engagement.DislikeCount));
         return video;
     }
 }
