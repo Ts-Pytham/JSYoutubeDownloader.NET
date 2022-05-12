@@ -2,6 +2,8 @@
 using JSYoutubeDownloader.NET.Models;
 using JSYoutubeDownloader.NET.Services;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -11,15 +13,12 @@ internal class MainWindowViewModel : ViewModelBase
 {
 
     #region Properties
-    private VideoInfo? _video;
+    private VideoInfo _video;
 
     public VideoInfo Video
     {
         get 
         {
-            if (_video == null)
-                throw new Exception("Video is null");
-
             return _video; 
         }
         set
@@ -29,6 +28,13 @@ internal class MainWindowViewModel : ViewModelBase
             _video = value;
             OnPropertyChanged();
         }
+    }
+
+    private ObservableCollection<VideoInfo> _videos;
+    public ObservableCollection<VideoInfo> Videos 
+    {
+        get { return _videos; } 
+        set { _videos = value; OnPropertyChanged(); }
     }
 
     private bool _isIndeterminate;
@@ -46,6 +52,14 @@ internal class MainWindowViewModel : ViewModelBase
         }
     }
 
+    private string _isDisable;
+
+    public string IsDisable
+    {
+        get => _isDisable;
+        set { _isDisable = value; OnPropertyChanged(); }
+    }
+
     #endregion
 
     #region Commands
@@ -56,8 +70,10 @@ internal class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        Video = new VideoInfo();
-        IsIndeterminate = false;
+        _video = new VideoInfo();
+        _videos = new ObservableCollection<VideoInfo>();
+       _isIndeterminate = false;
+        _isDisable = "Hidden";
     }
 
     
@@ -68,21 +84,32 @@ internal class MainWindowViewModel : ViewModelBase
             IVideoInfoService service = new VideoInfoService();
             IsIndeterminate = true;
             Video = await service.GetVideoInfo(Video.URL);
-            
+            IsDisable = "Visible";
         }
         catch (ArgumentException)
         {
-            IVideoInfoService service = new VideoInfoService();
-            IsIndeterminate = true;
-            Video = (await service.GetVideosInfo(Video.URL))[0];
-        }
+            try
+            {
+                IVideoInfoService service = new VideoInfoService();
+                IsIndeterminate = true;
+
+                Videos = new ObservableCollection<VideoInfo>(await service.GetVideosInfo(Video.URL));
+                Video = new(Videos[0]);
+
+                IsDisable = "Visible";
+            }
+            catch (System.Net.Http.HttpRequestException)
+            {
+                MessageBox.Show("Es posible que no haya internet");
+            }
+        } 
         catch (Exception)
         {
             MessageBox.Show("La URL está vacía");
         }
         finally
         {
-            IsIndeterminate = false;
+            IsIndeterminate = false; 
         }
 
     }
