@@ -1,13 +1,9 @@
 ﻿using JSYoutubeDownloader.NET.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using YoutubeExplode;
 using YoutubeExplode.Converter;
-using YoutubeExplode.Videos;
-using YoutubeExplode.Videos.Streams;
+using IO = System.IO;
 namespace JSYoutubeDownloader.NET.Services
 {
     internal class DownloadService : IDownloadVideoService
@@ -21,7 +17,11 @@ namespace JSYoutubeDownloader.NET.Services
 
         public async void DownloadVideo(VideoInfo video, string path, string quality, IProgress<double> progress)
         {
-            throw new NotImplementedException();
+            YoutubeClient client = new();
+
+            string extension = IO.Path.GetExtension(path);
+
+
         }
     }
 }

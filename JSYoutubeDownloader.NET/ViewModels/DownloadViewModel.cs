@@ -149,9 +149,10 @@ public class DownloadViewModel : ViewModelBase
             return;
         }
 
-        if(SelectedItemContainer == "mp3") // Downloading Only Audio
+        string _path = $"{Path}/{_videoInfo.Title}.{SelectedItemContainer}";
+
+        if (SelectedItemContainer == "mp3") // Downloading Only Audio
         {
-            string _path = $"{Path}/{_videoInfo.Title}.mp3";
             await _videoService.DownloadAudio(_videoInfo, _path, _progress);
             MessageBox.Show("Se descargó correctamente");
             Duration = 0;
