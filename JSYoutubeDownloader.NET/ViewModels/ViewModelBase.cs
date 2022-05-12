@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace JSYoutubeDownloader.NET.ViewModels
 {
-    internal abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyChanging
+    public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyChanging
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         public event PropertyChangingEventHandler? PropertyChanging;

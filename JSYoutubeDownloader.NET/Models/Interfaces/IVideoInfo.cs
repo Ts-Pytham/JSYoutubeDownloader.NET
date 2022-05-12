@@ -1,6 +1,6 @@
 ﻿namespace JSYoutubeDownloader.NET.Models.Interfaces;
 
-internal interface IVideoInfo
+public interface IVideoInfo
 {
     string URL { get; }
 

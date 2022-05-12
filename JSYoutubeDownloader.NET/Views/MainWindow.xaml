@@ -35,7 +35,7 @@
                 <Image Source="../Icons/search.png" Width="20"/>
             </Button>
 
-            <Button Grid.Column="2" Height="40" Background="#313131" BorderBrush="#313131" Margin="0, 0, 15, 0">
+            <Button Grid.Column="2" Height="40" Background="#313131" BorderBrush="#313131" Margin="0, 0, 15, 0" Command="{Binding DownloadCommand}" Cursor="Hand" >
                 <Image Source="../Icons/download.png" Width="20"/>
             </Button>
 

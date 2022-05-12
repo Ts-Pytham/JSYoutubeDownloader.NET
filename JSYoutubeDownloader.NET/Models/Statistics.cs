@@ -2,7 +2,7 @@
 
 namespace JSYoutubeDownloader.NET.Models;
 
-internal class Statistics : IStatistics
+public class Statistics : IStatistics
 {
     public long ViewCount { get; }
     public long LikeCount { get; }

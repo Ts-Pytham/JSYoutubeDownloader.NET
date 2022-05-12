@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:JSYoutubeDownloader.NET.Views"
+        xmlns:viewmodel="clr-namespace:JSYoutubeDownloader.NET.ViewModels"
         mc:Ignorable="d"
         Title="DownloadView" Height="249" Width="383" Background="#181818"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -12,6 +12,10 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         materialDesign:ThemeAssist.Theme="Dark" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
+
+    <Window.Resources>
+        <viewmodel:DownloadViewModel x:Key="DownloadViewModel"/>
+    </Window.Resources>
     <StackPanel>
         <Grid Margin="0, 0, 0, 20">
             
@@ -77,7 +81,7 @@
         </Grid>
 
         
-        <ProgressBar Height="20" Margin="10" 
+        <ProgressBar Height="20" Margin="10" Value="{Binding Duration}" Maximum="100"
                      Style="{DynamicResource MaterialDesignLinearProgressBar}"/>
 
         <WrapPanel HorizontalAlignment="Right" Margin="0,0,5,0">

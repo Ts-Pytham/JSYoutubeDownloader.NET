@@ -23,5 +23,10 @@ namespace JSYoutubeDownloader.NET.Views
         {
             InitializeComponent();
         }
+
+        public DownloadView(ViewModels.DownloadViewModel vm)
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace JSYoutubeDownloader.NET.Models.Interfaces;
 
-internal interface IStatistics
+public interface IStatistics
 {
     long ViewCount { get; }
     long LikeCount { get; }

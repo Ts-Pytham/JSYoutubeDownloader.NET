@@ -1,6 +1,6 @@
 ﻿namespace JSYoutubeDownloader.NET.Models.Interfaces;
 
-internal interface IAuthor
+public interface IAuthor
 {
     string Name { get; }
 

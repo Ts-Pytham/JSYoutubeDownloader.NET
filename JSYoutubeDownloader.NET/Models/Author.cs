@@ -2,7 +2,7 @@
 
 namespace JSYoutubeDownloader.NET.Models;
 
-internal class Author : IAuthor
+public class Author : IAuthor
 {
 
     public string Name { get; }

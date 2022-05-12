@@ -1,6 +1,7 @@
 ﻿using JSYoutubeDownloader.NET.Commands;
 using JSYoutubeDownloader.NET.Models;
 using JSYoutubeDownloader.NET.Services;
+using JSYoutubeDownloader.NET.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace JSYoutubeDownloader.NET.ViewModels;
 
-internal class MainWindowViewModel : ViewModelBase
+public class MainWindowViewModel : ViewModelBase
 {
 
     #region Properties
@@ -63,9 +64,10 @@ internal class MainWindowViewModel : ViewModelBase
     #endregion
 
     #region Commands
-    private RelayCommand? videoInfoCommands;
-    public ICommand VideoInfoCommands => videoInfoCommands ??= new RelayCommand(VideoInfoCommandExecute);
-
+    private RelayCommand? _videoInfoCommands;
+    private RelayCommand? _downloadCommand;
+    public ICommand VideoInfoCommands => _videoInfoCommands ??= new RelayCommand(VideoInfoCommandExecute);
+    public ICommand DownloadCommand => _downloadCommand ??= new RelayCommand(DownloadCommandExecute);
     #endregion
 
     public MainWindowViewModel()
@@ -76,6 +78,12 @@ internal class MainWindowViewModel : ViewModelBase
         _isDisable = "Hidden";
     }
 
+    private void DownloadCommandExecute(object commandParameter)
+    {
+        DownloadViewModel vm = new(Video);
+        DownloadView view = new(vm);
+        view.Show();
+    }
     
     private async void VideoInfoCommandExecute(object commandParameter)
     {

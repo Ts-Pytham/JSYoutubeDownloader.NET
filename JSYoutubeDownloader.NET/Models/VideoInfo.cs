@@ -1,14 +1,11 @@
 ﻿using JSYoutubeDownloader.NET.Models.Interfaces;
-using System;
 using YoutubeExplode.Videos;
 
 namespace JSYoutubeDownloader.NET.Models;
 
-internal class VideoInfo : IVideoInfo
+public class VideoInfo : IVideoInfo
 {
-
     public string URL { get; set; }
-
 
     public string Title { get; set; }
 
@@ -19,6 +16,7 @@ internal class VideoInfo : IVideoInfo
     public string Thumbnail { get; set; }
 
     public IStatistics Statistics { get; set; }
+    public VideoId Id { get; private set; }
 
     public VideoInfo(string uRL, string title, string description, Author author, string thumbnail, Statistics statistics)
     {
@@ -58,7 +56,8 @@ internal class VideoInfo : IVideoInfo
             Title = v.Title,
             Description = v.Description,
             Thumbnail = v.Thumbnails[4].Url,
-            Statistics = new Statistics(v.Engagement.ViewCount, v.Engagement.LikeCount, v.Engagement.DislikeCount)
+            Statistics = new Statistics(v.Engagement.ViewCount, v.Engagement.LikeCount, v.Engagement.DislikeCount),
+            Id = v.Id
         };
         return video;
     }
