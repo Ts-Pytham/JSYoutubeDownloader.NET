@@ -60,9 +60,9 @@ internal class VideoInfoService : IVideoInfoService
 
     public async Task<List<string>> GetContainers(VideoId id)
     {
-
         YoutubeClient youtube = new();
         StreamManifest stream = await youtube.Videos.Streams.GetManifestAsync(id);
-        return stream.GetVideoStreams().Select(x => x.Container.Name).Distinct().ToList();
+
+        return stream.GetVideoStreams().Select(x => x.Container.Name).Distinct().Append("mp3").OrderByDescending(x => x).ToList();
     }
 }

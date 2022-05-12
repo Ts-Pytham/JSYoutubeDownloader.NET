@@ -38,16 +38,6 @@ public class VideoInfo : IVideoInfo
         Statistics = new Statistics(0, 0, 0);
     }
 
-    public VideoInfo(VideoInfo videoInfo)
-    {
-        URL = videoInfo.URL;
-        Title = videoInfo.Title;
-        Description = videoInfo.Description;
-        Author = new Author(videoInfo.Author.Name, videoInfo.Author.Thumbnail);
-        Thumbnail = videoInfo.Thumbnail;
-        Statistics = new Statistics(videoInfo.Statistics.ViewCount, videoInfo.Statistics.LikeCount, videoInfo.Statistics.DislikeCount);
-    }
-
     public static implicit operator VideoInfo(Video v)
     {
         VideoInfo video = new()

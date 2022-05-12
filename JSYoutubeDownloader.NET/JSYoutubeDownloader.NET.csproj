@@ -33,6 +33,7 @@
     <PackageReference Include="MaterialDesignThemes" Version="4.6.0-ci172" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="YoutubeExplode" Version="6.1.2" />
+    <PackageReference Include="YoutubeExplode.Converter" Version="6.1.2" />
   </ItemGroup>
 
 </Project>

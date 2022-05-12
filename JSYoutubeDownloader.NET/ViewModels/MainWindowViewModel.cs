@@ -14,6 +14,8 @@ public class MainWindowViewModel : ViewModelBase
 {
 
     #region Properties
+    private DownloadView? _view;
+
     private VideoInfo _video;
 
     public VideoInfo Video
@@ -80,9 +82,30 @@ public class MainWindowViewModel : ViewModelBase
 
     private async void DownloadCommandExecute(object commandParameter)
     {
-        DownloadViewModel vm = await DownloadViewModel.Load(Video);
-        DownloadView view = new(vm);
-        view.Show();
+        try
+        {
+            IsIndeterminate = true;
+            DownloadViewModel vm = await DownloadViewModel.Load(Video);
+
+            if (_view == null || PresentationSource.FromVisual(_view) == null)
+            {
+                _view = new(vm);
+                _view.Show();
+            }
+            
+        }
+        catch (YoutubeExplode.Exceptions.VideoUnavailableException)
+        {
+            MessageBox.Show("No hay ningún vídeo para descargar!");
+        }
+        catch (YoutubeExplode.Exceptions.VideoUnplayableException)
+        {
+            MessageBox.Show("Este vídeo contiene restricción de edad!");
+        }
+        finally
+        {
+            IsIndeterminate = false;
+        }
     }
     
     private async void VideoInfoCommandExecute(object commandParameter)
@@ -102,7 +125,13 @@ public class MainWindowViewModel : ViewModelBase
                 IsIndeterminate = true;
 
                 Videos = new ObservableCollection<VideoInfo>(await service.GetVideosInfo(Video.URL));
-                Video = new(Videos[0]);
+                if(Videos.Count == 0)
+                {
+                    MessageBox.Show("No se encontró ningún vídeo, revisa la URL");
+                    return;
+                }
+
+                Video = Videos[0];
 
                 IsDisable = "Visible";
             }

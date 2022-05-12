@@ -40,7 +40,7 @@
             </Border>
 
             <Border Grid.Column="1">
-                <ComboBox ItemsSource="{Binding Containers}"/>
+                <ComboBox ItemsSource="{Binding Containers}" SelectedItem="{Binding SelectedItemContainer}"/>
             </Border>
 
             <Border Grid.Column="2">
@@ -48,7 +48,7 @@
             </Border>
 
             <Border Grid.Column="3">
-                <ComboBox ItemsSource="{Binding Qualities}"/>
+                <ComboBox ItemsSource="{Binding Qualities}" IsEnabled="{Binding IsEnable}" SelectedItem="{Binding SelectedItemQuality}" />
             </Border>
         </Grid>
 
@@ -75,7 +75,7 @@
             </Border>
 
             <Border Grid.Column="2">
-                <Button Content="Buscar" Background="{x:Null}"/>
+                <Button Content="Buscar" Background="{x:Null}" Command="{Binding SearchFolderCommand}" Cursor="Hand"/>
             </Border>
         </Grid>
 
@@ -84,8 +84,8 @@
                      Style="{DynamicResource MaterialDesignLinearProgressBar}"/>
 
         <WrapPanel HorizontalAlignment="Right" Margin="0,0,5,0">
-            <Button Content="Descargar" Background="{x:Null}" Margin="10"/>
-            <Button Content="Cancelar" Background="{x:Null}"/>
+            <Button Content="Descargar" Background="{x:Null}" Margin="10" Cursor="Hand" Command="{Binding DownloadCommand}"/>
+            <Button Content="Cancelar" Background="{x:Null}" Cursor="Hand"/>
         </WrapPanel>
     </StackPanel>
 </Window>

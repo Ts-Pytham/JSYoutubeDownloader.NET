@@ -141,12 +141,15 @@
                         </StackPanel>
                     </Grid>
 
-                        <Expander Style="{DynamicResource MaterialDesignExpander}" Margin="15" Visibility="{Binding IsDisable}">
+                        <Expander Style="{DynamicResource MaterialDesignExpander}" Margin="15" 
+                                  Visibility="{Binding IsDisable}" >
                             <Expander.Header>
                                 <TextBlock Text="Descripción" FontSize="16"/>
                             </Expander.Header>
                             
-                            <TextBlock Text="{Binding Video.Description}" TextWrapping="Wrap" FontSize="14"/>
+                            <TextBox Text="{Binding Video.Description}" TextWrapping="Wrap" 
+                                     FontSize="14" Cursor="Arrow" Style="{DynamicResource MaterialDesignOutlinedTextBox}"
+                                     IsReadOnly="True"/>
                         </Expander>
                     
                 </StackPanel>
