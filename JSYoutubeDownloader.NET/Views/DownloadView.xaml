@@ -11,11 +11,11 @@
         TextElement.FontSize="16"
         FontFamily="{DynamicResource MaterialDesignFont}"
         materialDesign:ThemeAssist.Theme="Dark" WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        ResizeMode="CanMinimize">
 
 
     <StackPanel>
-        <ProgressBar IsIndeterminate="{Binding IsIndeterminate}"/>
+
         <Grid Margin="0, 0, 0, 20">
             
             <Grid.Resources >
@@ -85,7 +85,7 @@
 
         <WrapPanel HorizontalAlignment="Right" Margin="0,0,5,0">
             <Button Content="Descargar" Background="{x:Null}" Margin="10" Cursor="Hand" Command="{Binding DownloadCommand}"/>
-            <Button Content="Cancelar" Background="{x:Null}" Cursor="Hand"/>
+            <Button Content="Cancelar" Background="{x:Null}" Cursor="Hand" Command="{Binding CancelCommand}"/>
         </WrapPanel>
     </StackPanel>
 </Window>

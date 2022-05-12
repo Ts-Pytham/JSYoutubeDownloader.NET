@@ -1,17 +1,18 @@
 ﻿using JSYoutubeDownloader.NET.Models.Interfaces;
+using JSYoutubeDownloader.NET.Utilities;
 
 namespace JSYoutubeDownloader.NET.Models;
 
 public class Statistics : IStatistics
 {
-    public long ViewCount { get; }
-    public long LikeCount { get; }
-    public long DislikeCount { get; }
+    public string ViewCount { get; set; }
+    public string LikeCount { get; set; }
+    public string DislikeCount { get; set; }
 
-    public Statistics(long viewCount, long likeCount, long dislikeCount)
+    public Statistics(string viewCount, string likeCount, string dislikeCount)
     {
-        ViewCount = viewCount;
-        LikeCount = likeCount;
+        ViewCount = Utils.FormatInDecimal('.', viewCount);
+        LikeCount = Utils.FormatInDecimal('.', likeCount);
         DislikeCount = dislikeCount;
     }
 }

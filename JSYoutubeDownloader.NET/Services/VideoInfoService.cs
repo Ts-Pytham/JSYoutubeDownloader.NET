@@ -51,18 +51,28 @@ internal class VideoInfoService : IVideoInfoService
         return videosInfo;
     }
 
-    public async Task<List<string>> GetQualities(VideoId id)
+    public async Task<List<dynamic>> GetQualities(VideoId id)
     {
         YoutubeClient youtube = new();
         StreamManifest stream = await youtube.Videos.Streams.GetManifestAsync(id);
-        return stream.GetVideoStreams().Select(x => x.VideoQuality.Label).Distinct().OrderByDescending(x => x).ToList();
+        List<dynamic> list = new()
+        {
+            stream.GetVideoStreams().Select(x => x.VideoQuality.Label).Distinct().OrderByDescending(x => x).ToList(),
+            stream
+        };
+
+        return list;    
     }
 
-    public async Task<List<string>> GetContainers(VideoId id)
+    public async Task<List<dynamic>> GetContainers(VideoId id)
     {
         YoutubeClient youtube = new();
         StreamManifest stream = await youtube.Videos.Streams.GetManifestAsync(id);
-
-        return stream.GetVideoStreams().Select(x => x.Container.Name).Distinct().Append("mp3").OrderByDescending(x => x).ToList();
+        List<dynamic> list = new()
+        {
+            stream.GetVideoStreams().Select(x => x.Container.Name).Distinct().Append("mp3").OrderByDescending(x => x).ToList(),
+            stream
+        };
+        return list;
     }
 }

@@ -1,26 +1,35 @@
 ﻿using JSYoutubeDownloader.NET.Models;
 using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using YoutubeExplode;
 using YoutubeExplode.Converter;
-using IO = System.IO;
+using YoutubeExplode.Videos.Streams;
 namespace JSYoutubeDownloader.NET.Services
 {
     internal class DownloadService : IDownloadVideoService
     {
-        public async Task DownloadAudio(VideoInfo video, string path, IProgress<double> progress)
+        public async Task DownloadAudio(VideoInfo video, string path, IProgress<double> progress, CancellationToken token)
         {
             YoutubeClient client = new();
 
-            await client.Videos.DownloadAsync(video.Id, path, p => p.SetContainer("mp3").SetPreset(ConversionPreset.UltraFast), progress);
+            await client.Videos.DownloadAsync(video.Id, path, p => p.SetContainer("mp3").SetPreset(ConversionPreset.UltraFast), progress, token);
         }
 
-        public async void DownloadVideo(VideoInfo video, string path, string quality, IProgress<double> progress)
+        public async Task DownloadVideo(StreamManifest stream, VideoInfo video, string path, string quality, IProgress<double> progress, CancellationToken token)
         {
             YoutubeClient client = new();
 
-            string extension = IO.Path.GetExtension(path);
+            var videoStreamInfo = stream.GetVideoOnlyStreams().First(s => s.VideoQuality.Label == quality);
+            var audioStreamInfo = stream.GetAudioOnlyStreams().GetWithHighestBitrate();
 
+            var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
+            
+            await client.Videos.DownloadAsync(
+                streamInfos, new ConversionRequestBuilder(path)
+                            .SetPreset(ConversionPreset.UltraFast)
+                            .Build(), progress, token);
 
         }
     }

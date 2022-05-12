@@ -3,7 +3,6 @@ using JSYoutubeDownloader.NET.Models;
 using JSYoutubeDownloader.NET.Services;
 using JSYoutubeDownloader.NET.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -96,11 +95,11 @@ public class MainWindowViewModel : ViewModelBase
         }
         catch (YoutubeExplode.Exceptions.VideoUnavailableException)
         {
-            MessageBox.Show("No hay ningún vídeo para descargar!");
+            MessageBox.Show("No hay ningún vídeo para descargar!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         catch (YoutubeExplode.Exceptions.VideoUnplayableException)
         {
-            MessageBox.Show("Este vídeo contiene restricción de edad!");
+            MessageBox.Show("Este vídeo contiene restricción de edad!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         finally
         {
@@ -127,7 +126,7 @@ public class MainWindowViewModel : ViewModelBase
                 Videos = new ObservableCollection<VideoInfo>(await service.GetVideosInfo(Video.URL));
                 if(Videos.Count == 0)
                 {
-                    MessageBox.Show("No se encontró ningún vídeo, revisa la URL");
+                    MessageBox.Show("No se encontró ningún vídeo, revisa la URL", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
@@ -137,12 +136,16 @@ public class MainWindowViewModel : ViewModelBase
             }
             catch (System.Net.Http.HttpRequestException)
             {
-                MessageBox.Show("Es posible que no haya internet");
+                MessageBox.Show("Es posible que no haya internet", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-        } 
+        }
+        catch (System.Net.Http.HttpRequestException)
+        {
+            MessageBox.Show("Al parecer no tienes internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
         catch (Exception)
         {
-            MessageBox.Show("La URL está vacía");
+            MessageBox.Show("La URL está vacía", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         finally
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using YoutubeExplode.Videos;
+using YoutubeExplode.Videos.Streams;
 
 namespace JSYoutubeDownloader.NET.Services;
 
@@ -11,7 +12,7 @@ internal interface IVideoInfoService
 
     Task<List<VideoInfo>> GetVideosInfo(string Word);
 
-    Task<List<string>> GetQualities(VideoId id);
+    Task<List<dynamic>> GetQualities(VideoId id);
 
-    Task<List<string>> GetContainers(VideoId id);
+    Task<List<dynamic>> GetContainers(VideoId id);
 }
