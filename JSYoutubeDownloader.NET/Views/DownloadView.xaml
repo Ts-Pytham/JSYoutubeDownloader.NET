@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:viewmodel="clr-namespace:JSYoutubeDownloader.NET.ViewModels"
+
         mc:Ignorable="d"
-        Title="DownloadView" Height="249" Width="383" Background="#181818"
+        Title="DownloadView" Height="266" Width="383" Background="#181818"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="16"
@@ -13,10 +13,9 @@
         materialDesign:ThemeAssist.Theme="Dark" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
 
-    <Window.Resources>
-        <viewmodel:DownloadViewModel x:Key="DownloadViewModel"/>
-    </Window.Resources>
+
     <StackPanel>
+        <ProgressBar IsIndeterminate="{Binding IsIndeterminate}"/>
         <Grid Margin="0, 0, 0, 20">
             
             <Grid.Resources >

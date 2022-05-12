@@ -78,9 +78,9 @@ public class MainWindowViewModel : ViewModelBase
         _isDisable = "Hidden";
     }
 
-    private void DownloadCommandExecute(object commandParameter)
+    private async void DownloadCommandExecute(object commandParameter)
     {
-        DownloadViewModel vm = new(Video);
+        DownloadViewModel vm = await DownloadViewModel.Load(Video);
         DownloadView view = new(vm);
         view.Show();
     }

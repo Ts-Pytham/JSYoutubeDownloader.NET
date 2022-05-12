@@ -55,7 +55,7 @@ internal class VideoInfoService : IVideoInfoService
     {
         YoutubeClient youtube = new();
         StreamManifest stream = await youtube.Videos.Streams.GetManifestAsync(id);
-        return stream.GetVideoStreams().Select(x => x.VideoQuality.Label).Distinct().OrderBy(x => x.Replace("p", "")).ToList();
+        return stream.GetVideoStreams().Select(x => x.VideoQuality.Label).Distinct().OrderByDescending(x => x).ToList();
     }
 
     public async Task<List<string>> GetContainers(VideoId id)

@@ -2,18 +2,22 @@
 using JSYoutubeDownloader.NET.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace JSYoutubeDownloader.NET.ViewModels;
 
 public class DownloadViewModel : ViewModelBase
 {
     #region Properties
+
+
     private List<string> _containers;
 
-    public List<string> ContainerList
+    public List<string> Containers
     {
         get { return _containers; }
         set { _containers = value; OnPropertyChanged(); }
@@ -45,7 +49,7 @@ public class DownloadViewModel : ViewModelBase
 
     private bool _isIndeterminate;
 
-    public bool Indeterminate
+    public bool IsIndeterminate
     {
         get { return _isIndeterminate; }
         set { _isIndeterminate = value; OnPropertyChanged(); }
@@ -53,26 +57,20 @@ public class DownloadViewModel : ViewModelBase
 
     #endregion
 
-    public DownloadViewModel()
-    {
-        _containers = new();
-        _qualities = new();
+
+    private DownloadViewModel(List<string> Containers, List<string> Qualities)
+    {     
+        _containers = Containers;
+        _qualities = Qualities;
         _path = "";
-    }
-    public DownloadViewModel(VideoInfo video)
-    {
-        _isIndeterminate = true;
-        _containers = new();
-        _qualities = new();
-        Load(video);
-        _path = "";
-        _isIndeterminate = false;
+   
     }
 
-    public async void Load(VideoInfo video)
+    public static async Task<DownloadViewModel> Load(VideoInfo video)
     {
         IVideoInfoService service = new VideoInfoService();
-        _containers = await service.GetContainers(video.Id);
-        _qualities = await service.GetQualities(video.Id);
+        var _containers = await service.GetContainers(video.Id);
+        List<string> _qualities = await service.GetQualities(video.Id);
+        return new DownloadViewModel(_containers, _qualities);
     }
 }
