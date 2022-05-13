@@ -1,4 +1,5 @@
 ﻿using JSYoutubeDownloader.NET.Models.Interfaces;
+using YoutubeExplode.Common;
 using YoutubeExplode.Videos;
 
 namespace JSYoutubeDownloader.NET.Models;
@@ -45,7 +46,7 @@ public class VideoInfo : IVideoInfo
             URL = v.Url,
             Title = v.Title,
             Description = v.Description,
-            Thumbnail = v.Thumbnails[4].Url,
+            Thumbnail = v.Thumbnails.TryGetWithHighestResolution()?.Url ?? "",
             Statistics = new Statistics(v.Engagement.ViewCount.ToString(), v.Engagement.LikeCount.ToString(), v.Engagement.DislikeCount.ToString()),
             Id = v.Id
         };
