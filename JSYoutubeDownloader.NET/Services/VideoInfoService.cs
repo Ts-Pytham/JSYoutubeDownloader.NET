@@ -70,7 +70,7 @@ internal class VideoInfoService : IVideoInfoService
         StreamManifest stream = await youtube.Videos.Streams.GetManifestAsync(id);
         List<dynamic> list = new()
         {
-            stream.GetVideoStreams().Select(x => x.Container.Name).Distinct().Append("mp3").OrderByDescending(x => x).ToList(),
+            stream.GetVideoStreams().Where(x => x.Container.Name != "3gpp").Select(x => x.Container.Name).Distinct().Append("mp3").OrderByDescending(x => x).ToList(),
             stream
         };
         return list;

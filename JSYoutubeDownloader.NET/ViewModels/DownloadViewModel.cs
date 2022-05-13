@@ -161,12 +161,12 @@ public class DownloadViewModel : ViewModelBase
         {
             if (string.IsNullOrWhiteSpace(Path))
             {
-                MessageBox.Show("La ruta está vacía!");
+                MessageBox.Show("La ruta está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (!IO.Directory.Exists(Path))
             {
-                MessageBox.Show("La ruta no existe, busque una nueva!");
+                MessageBox.Show("La ruta no existe, busque una nueva!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

@@ -135,8 +135,7 @@
                         <Image Source="{Binding Video.Author.Thumbnail}"/> <!-- Image-->
 
                         <StackPanel Grid.Column="1" Margin="5, 0, 0, 0"> <!-- Author, Subs -->
-                            <TextBlock Text="{Binding Video.Author.Name}" FontSize="16"
-                                       />
+                            <TextBlock Text="{Binding Video.Author.Name}" FontSize="16"/>
                             
                         </StackPanel>
                     </Grid>
