@@ -1,18 +1,4 @@
-﻿using JSYoutubeDownloader.NET.Commands;
-using JSYoutubeDownloader.NET.Models;
-using JSYoutubeDownloader.NET.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Ookii.Dialogs.Wpf;
-using System.Windows;
-using IO = System.IO;
-using System;
-using YoutubeExplode.Videos.Streams;
-using JSYoutubeDownloader.NET.Utilities;
-using System.Threading;
-
-namespace JSYoutubeDownloader.NET.ViewModels;
+﻿namespace JSYoutubeDownloader.NET.ViewModels;
 
 public class DownloadViewModel : ViewModelBase
 {

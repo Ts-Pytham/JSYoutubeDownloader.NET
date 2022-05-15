@@ -1,11 +1,4 @@
-﻿using JSYoutubeDownloader.NET.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using YoutubeExplode.Videos.Streams;
-
-namespace JSYoutubeDownloader.NET.Services
+﻿namespace JSYoutubeDownloader.NET.Services
 {
     public interface IDownloadVideoService
     {

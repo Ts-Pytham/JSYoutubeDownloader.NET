@@ -1,11 +1,9 @@
-﻿using JSYoutubeDownloader.NET.Models.Interfaces;
-
-namespace JSYoutubeDownloader.NET.Models;
+﻿namespace JSYoutubeDownloader.NET.Models;
 
 public class Author : IAuthor
 {
 
-    public string Name { get; }
+    public string Name { get; set; }
 
     public string Thumbnail { get; }
 

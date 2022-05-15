@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace JSYoutubeDownloader.NET.ViewModels
+﻿namespace JSYoutubeDownloader.NET.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyChanging
     {

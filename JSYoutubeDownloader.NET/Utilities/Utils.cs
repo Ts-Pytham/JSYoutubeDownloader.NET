@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JSYoutubeDownloader.NET.Utilities
+﻿namespace JSYoutubeDownloader.NET.Utilities
 {
     public static class Utils
     {
@@ -21,23 +15,6 @@ namespace JSYoutubeDownloader.NET.Utilities
                 }
             }
             return strb.ToString();
-        }
-
-        public static string FormatInDecimal(char letter, string sentence)
-        {
-            int len = sentence.Length;
-            int j = 0;
-            if (len <= 3) return sentence;
-            for (int i = 0; i != len; ++i)
-            {
-                if (j == 3)
-                {
-                    sentence = sentence.Insert(len - i, letter.ToString());
-                    j = 0;
-                }
-                j++;
-            }
-            return sentence;
         }
     }
 }

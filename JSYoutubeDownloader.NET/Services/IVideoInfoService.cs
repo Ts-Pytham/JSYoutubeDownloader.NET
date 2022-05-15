@@ -1,9 +1,4 @@
-﻿using JSYoutubeDownloader.NET.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using YoutubeExplode.Videos;
-
-namespace JSYoutubeDownloader.NET.Services;
+﻿namespace JSYoutubeDownloader.NET.Services;
 
 internal interface IVideoInfoService
 {

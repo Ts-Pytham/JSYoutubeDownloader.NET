@@ -1,8 +1,4 @@
-﻿using JSYoutubeDownloader.NET.Models.Interfaces;
-using YoutubeExplode.Common;
-using YoutubeExplode.Videos;
-
-namespace JSYoutubeDownloader.NET.Models;
+﻿namespace JSYoutubeDownloader.NET.Models;
 
 public class VideoInfo : IVideoInfo
 {

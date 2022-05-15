@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace JSYoutubeDownloader.NET.Views;
+﻿namespace JSYoutubeDownloader.NET.Views;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

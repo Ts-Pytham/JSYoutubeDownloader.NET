@@ -1,13 +1,4 @@
-﻿using JSYoutubeDownloader.NET.Commands;
-using JSYoutubeDownloader.NET.Models;
-using JSYoutubeDownloader.NET.Services;
-using JSYoutubeDownloader.NET.Views;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Input;
-
-namespace JSYoutubeDownloader.NET.ViewModels;
+﻿namespace JSYoutubeDownloader.NET.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {

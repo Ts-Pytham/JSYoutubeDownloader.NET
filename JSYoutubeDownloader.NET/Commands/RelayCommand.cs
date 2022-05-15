@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Input;
-
-namespace JSYoutubeDownloader.NET.Commands;
+﻿namespace JSYoutubeDownloader.NET.Commands;
 
 internal class RelayCommand : ICommand
 {

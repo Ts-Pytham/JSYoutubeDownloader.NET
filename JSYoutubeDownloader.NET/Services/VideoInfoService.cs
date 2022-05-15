@@ -1,15 +1,4 @@
-﻿using JSYoutubeDownloader.NET.Models;
-using System.Threading.Tasks;
-using YoutubeExplode;
-using System;
-using System.Collections.Generic;
-using YoutubeExplode.Common;
-using Author = JSYoutubeDownloader.NET.Models.Author;
-using YoutubeExplode.Videos.Streams;
-using YoutubeExplode.Videos;
-using System.Linq;
-
-namespace JSYoutubeDownloader.NET.Services;
+﻿namespace JSYoutubeDownloader.NET.Services;
 
 internal class VideoInfoService : IVideoInfoService
 {

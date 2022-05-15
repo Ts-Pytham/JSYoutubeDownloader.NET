@@ -1,7 +1,4 @@
-﻿using JSYoutubeDownloader.NET.Models.Interfaces;
-using JSYoutubeDownloader.NET.Utilities;
-
-namespace JSYoutubeDownloader.NET.Models;
+﻿namespace JSYoutubeDownloader.NET.Models;
 
 public class Statistics : IStatistics
 {
