@@ -5,14 +5,14 @@ namespace JSYoutubeDownloader.NET.Models;
 
 public class Statistics : IStatistics
 {
-    public string ViewCount { get; set; }
-    public string LikeCount { get; set; }
-    public string DislikeCount { get; set; }
+    public long ViewCount { get; set; }
+    public long LikeCount { get; set; }
+    public long DislikeCount { get; set; }
 
-    public Statistics(string viewCount, string likeCount, string dislikeCount)
+    public Statistics(long viewCount, long likeCount, long dislikeCount)
     {
-        ViewCount = Utils.FormatInDecimal('.', viewCount);
-        LikeCount = Utils.FormatInDecimal('.', likeCount);
+        ViewCount = viewCount;
+        LikeCount = likeCount;
         DislikeCount = dislikeCount;
     }
 }

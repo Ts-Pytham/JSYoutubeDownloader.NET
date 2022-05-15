@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using YoutubeExplode.Videos;
-using YoutubeExplode.Videos.Streams;
 
 namespace JSYoutubeDownloader.NET.Services;
 

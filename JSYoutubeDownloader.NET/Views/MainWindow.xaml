@@ -101,20 +101,20 @@
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="{Binding Video.Statistics.ViewCount}"
+                            <TextBlock Text="{Binding Video.Statistics.ViewCount, StringFormat= {}{0:N0} Vistas }"
                                    VerticalAlignment="Center" Grid.Column="0" Visibility="{Binding IsDisable}"/>
 
                         <Image Source="../Icons/like.png" Width="20" Grid.Column="1"
                                Visibility="{Binding IsDisable}"/>
 
-                        <TextBlock Text="{Binding Video.Statistics.LikeCount}"
+                            <TextBlock Text="{Binding Video.Statistics.LikeCount, StringFormat= {}{0:N0}}"
                                    VerticalAlignment="Center" Grid.Column="2"
                                    Visibility="{Binding IsDisable}"/>
                         
                         <Image Source="../Icons/dislike.png" Width="20" Grid.Column="3"
                                Visibility="{Binding IsDisable}"/>
 
-                        <TextBlock Text="{Binding Video.Statistics.DislikeCount}"
+                            <TextBlock Text="{Binding Video.Statistics.DislikeCount, StringFormat= {}{0:N0}}"
                                    VerticalAlignment="Center" Grid.Column="4" Visibility="{Binding IsDisable}"/>
 
                     </Grid>

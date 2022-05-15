@@ -36,7 +36,7 @@ public class VideoInfo : IVideoInfo
         Description = "";
         Author = new Author("", "");
         Thumbnail = "";
-        Statistics = new Statistics("", "", "");
+        Statistics = new Statistics(0, 0,0);
     }
 
     public static implicit operator VideoInfo(Video v)
@@ -47,7 +47,7 @@ public class VideoInfo : IVideoInfo
             Title = v.Title,
             Description = v.Description,
             Thumbnail = v.Thumbnails.TryGetWithHighestResolution()?.Url ?? "",
-            Statistics = new Statistics(v.Engagement.ViewCount.ToString(), v.Engagement.LikeCount.ToString(), v.Engagement.DislikeCount.ToString()),
+            Statistics = new Statistics(v.Engagement.ViewCount, v.Engagement.LikeCount, v.Engagement.DislikeCount),
             Id = v.Id
         };
         return video;

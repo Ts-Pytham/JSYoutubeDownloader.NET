@@ -2,8 +2,8 @@
 
 public interface IStatistics
 {
-    string ViewCount { get; set; }
-    string LikeCount { get; set; }
-    string DislikeCount { get; set; }
+    long ViewCount { get; set; }
+    long LikeCount { get; set; }
+    long DislikeCount { get; set; }
 
 }

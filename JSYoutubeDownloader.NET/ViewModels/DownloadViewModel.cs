@@ -101,7 +101,7 @@ public class DownloadViewModel : ViewModelBase
 
     private DownloadViewModel(VideoInfo video, List<string> Containers, List<string> Qualities, StreamManifest stream)
     {
-        _videoService = new DownloadService();
+        _videoService = new DownloadVideoService();
         _progress = new Progress<double>(p => Duration = 100 * p);
         _videoInfo = video;
         _token = new CancellationTokenSource();

@@ -8,7 +8,7 @@ using YoutubeExplode.Converter;
 using YoutubeExplode.Videos.Streams;
 namespace JSYoutubeDownloader.NET.Services
 {
-    internal class DownloadService : IDownloadVideoService
+    internal class DownloadVideoService : IDownloadVideoService
     {
         public async Task DownloadAudio(VideoInfo video, string path, IProgress<double> progress, CancellationToken token)
         {
