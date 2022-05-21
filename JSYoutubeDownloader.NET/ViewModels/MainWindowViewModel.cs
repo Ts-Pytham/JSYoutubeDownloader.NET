@@ -1,4 +1,8 @@
-﻿namespace JSYoutubeDownloader.NET.ViewModels;
+﻿using HtmlAgilityPack;
+using ScrapySharp.Extensions;
+using System.Configuration;
+
+namespace JSYoutubeDownloader.NET.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
@@ -68,7 +72,35 @@ public class MainWindowViewModel : ViewModelBase
         _videos = new ObservableCollection<VideoInfo>();
        _isIndeterminate = false;
         _isDisable = "Hidden";
+        Thread thread = new(CheckVersion);
+        thread.Start();
     }
+
+    #region Methods
+
+    private void CheckVersion()
+    {
+        string version = ConfigurationManager.AppSettings["Version"] ?? "";
+
+        HtmlWeb web = new();
+        string url = "https://github.com/Ts-Pytham/JSYoutubeDownloader.NET";
+        var doc = web.Load(url);
+
+        var data = doc.DocumentNode.CssSelect(".ml-2").CssSelect(".css-truncate").First().InnerHtml;
+        if(data != version)
+        {
+            var msg = MessageBox.Show("La versión es diferente, puede descargar la nueva versión en la web.",
+                             "Información",MessageBoxButton.OKCancel, MessageBoxImage.Information);
+
+            if (msg == MessageBoxResult.OK)
+            {
+                string argument = $"/c start {url}/releases/tag/{data.ToLower()}";
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("cmd", argument) { CreateNoWindow = true });
+            }
+        }
+    }
+    #endregion
+
 
     private async void DownloadCommandExecute(object commandParameter)
     {

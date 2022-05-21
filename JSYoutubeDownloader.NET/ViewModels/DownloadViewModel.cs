@@ -108,8 +108,10 @@ public class DownloadViewModel : ViewModelBase
 
         var _qualities = await service.GetQualities(video.Id);
         return new DownloadViewModel(video, _containers[0], _qualities[0], _containers[1]);
+
     }
 
+    
     #region Commands
     private RelayCommand? _downloadCommand;
     private RelayCommand? _searchFolderCommand;

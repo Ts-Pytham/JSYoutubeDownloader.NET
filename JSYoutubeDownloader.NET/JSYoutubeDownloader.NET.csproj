@@ -2,15 +2,17 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Icons\dislike.png" />
     <None Remove="Icons\download.png" />
     <None Remove="Icons\like.png" />
+    <None Remove="Icons\logo.ico" />
     <None Remove="Icons\search.png" />
   </ItemGroup>
 
@@ -24,14 +26,19 @@
     <Content Include="Icons\like.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icons\logo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\search.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.0-ci172" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+    <PackageReference Include="ScrapySharp" Version="3.0.0" />
     <PackageReference Include="YoutubeExplode" Version="6.1.2" />
     <PackageReference Include="YoutubeExplode.Converter" Version="6.1.2" />
   </ItemGroup>
