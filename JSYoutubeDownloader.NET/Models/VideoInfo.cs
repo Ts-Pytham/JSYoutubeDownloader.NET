@@ -3,6 +3,7 @@
 public class VideoInfo : IVideoInfo
 {
     public string URL { get; set; }
+    public string EmbedURL { get; set; }
 
     public string Title { get; set; }
 
@@ -15,7 +16,7 @@ public class VideoInfo : IVideoInfo
     public IStatistics Statistics { get; set; }
     public VideoId Id { get; private set; }
 
-    public VideoInfo(string uRL, string title, string description, Author author, string thumbnail, Statistics statistics)
+    public VideoInfo(string uRL, string embedURL,string title, string description, Author author, string thumbnail, Statistics statistics)
     {
         URL = uRL;
         Title = title;
@@ -23,6 +24,7 @@ public class VideoInfo : IVideoInfo
         Author = author;
         Thumbnail = thumbnail;
         Statistics = statistics;
+        EmbedURL = embedURL;
     }
 
     public VideoInfo()
@@ -30,6 +32,7 @@ public class VideoInfo : IVideoInfo
         URL = "";
         Title = "";
         Description = "";
+        EmbedURL = "";
         Author = new Author("", "");
         Thumbnail = "";
         Statistics = new Statistics(0, 0,0);
@@ -44,7 +47,8 @@ public class VideoInfo : IVideoInfo
             Description = v.Description,
             Thumbnail = v.Thumbnails.TryGetWithHighestResolution()?.Url ?? "",
             Statistics = new Statistics(v.Engagement.ViewCount, v.Engagement.LikeCount, v.Engagement.DislikeCount),
-            Id = v.Id
+            Id = v.Id,
+            EmbedURL = v.VideoURLToEmbedURL()
         };
         return video;
     }

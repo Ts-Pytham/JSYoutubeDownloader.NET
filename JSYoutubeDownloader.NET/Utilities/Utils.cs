@@ -16,5 +16,10 @@
             }
             return strb.ToString();
         }
+
+        public static string VideoURLToEmbedURL(this Video video)
+        {
+            return $"https://www.youtube.com/embed/{video.Id}";
+        }
     }
 }
