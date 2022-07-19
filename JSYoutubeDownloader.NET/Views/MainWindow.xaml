@@ -26,7 +26,8 @@
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Foreground="White" Background="#121212" 
+            <TextBox Grid.Column="0" Foreground="White" Background="#121212"
+                     Padding="5, 0, 0, 0"
                      Height="40" Margin="20, 0, 0, 0" BorderBrush="#313131"
                      VerticalContentAlignment="Center" FontSize="16" Text="{Binding Video.URL}"
                      materialDesign:HintAssist.Hint="Buscar" Cursor="Arrow"/>
