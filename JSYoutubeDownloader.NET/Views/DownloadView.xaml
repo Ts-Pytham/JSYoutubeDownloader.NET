@@ -85,7 +85,11 @@
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
 
-            <ProgressBar Grid.Column="0" Height="20"  Value="{Binding Duration}" Maximum="100" Style="{DynamicResource MaterialDesignLinearProgressBar}" />
+            <Grid Grid.Column="0">
+                <ProgressBar Height="20"  Value="{Binding Duration}" Maximum="100" Style="{DynamicResource MaterialDesignLinearProgressBar}"/>
+                <TextBlock Text="{Binding Duration, StringFormat={}{0:0.#}%}" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnDefinition.Width="*"/>
+            </Grid>
+            
             <Button Grid.Column="1" Content="X" Height="20" Background="{x:Null}" 
                     Cursor="Hand" Command="{Binding CancelCommand}" Margin="5, 0, 0, 0"
                     Padding="2"/>

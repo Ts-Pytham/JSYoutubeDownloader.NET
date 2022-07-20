@@ -71,6 +71,11 @@ public class DownloadViewModel : ViewModelBase
         set { _duration = value; OnPropertyChanged(); } 
     }
 
+    public string Progress
+    {
+        get { return Duration + "%"; }
+
+    }
     private bool _isEnable;
 
     public bool IsEnable
@@ -168,20 +173,27 @@ public class DownloadViewModel : ViewModelBase
                 {
                     await _videoService.DownloadAudio(_videoInfo, _path, _progress, _token.Token);
                     _ = MessageBoxAsync.Show("Se descargó correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Duration = 0;
+                    //Duration = 0;
                 }
                 else
                 {
                     await _videoService.DownloadVideo(_stream, _videoInfo, _path, SelectedItemQuality, _progress, _token.Token);
                     _ = MessageBoxAsync.Show("Se descargó correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Duration = 0;
+                    //Duration = 0;
                 }
             }
-            catch (TaskCanceledException)
+            catch (Exception ex)
             {
-                _ = MessageBoxAsync.Show("Se canceló la descarga", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                IO.File.Delete(_path);
-                _token = new();
+                if (ex is OperationCanceledException || ex is TaskCanceledException)
+                {
+                    _ = MessageBoxAsync.Show("Se canceló la descarga", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    IO.File.Delete(_path);
+                    _token = new();
+                }
+                else
+                {
+                    Debug.WriteLine(ex);
+                }
             }
             finally
             {
