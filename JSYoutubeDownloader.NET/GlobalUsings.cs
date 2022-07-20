@@ -23,3 +23,7 @@ global using YoutubeExplode.Common;
 global using YoutubeExplode.Converter;
 global using YoutubeExplode.Videos;
 global using YoutubeExplode.Videos.Streams;
+global using HtmlAgilityPack;
+global using ScrapySharp.Extensions;
+global using System.Configuration;
+global using System.Diagnostics;

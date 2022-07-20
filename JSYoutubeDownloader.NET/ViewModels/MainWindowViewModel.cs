@@ -1,8 +1,4 @@
-﻿using HtmlAgilityPack;
-using ScrapySharp.Extensions;
-using System.Configuration;
-
-namespace JSYoutubeDownloader.NET.ViewModels;
+﻿namespace JSYoutubeDownloader.NET.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
@@ -27,8 +23,8 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
-    private ObservableCollection<VideoInfo> _videos;
-    public ObservableCollection<VideoInfo> Videos 
+    private List<VideoInfo> _videos;
+    public List<VideoInfo> Videos 
     {
         get { return _videos; } 
         set { _videos = value; OnPropertyChanged(); }
@@ -69,7 +65,7 @@ public class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         _video = new VideoInfo();
-        _videos = new ObservableCollection<VideoInfo>();
+        _videos = new();
        _isIndeterminate = false;
         _isDisable = "Hidden";
         Thread thread = new(CheckVersion);
@@ -147,12 +143,25 @@ public class MainWindowViewModel : ViewModelBase
             {
                 IVideoInfoService service = new VideoInfoService();
                 IsIndeterminate = true;
-
-                Videos = new ObservableCollection<VideoInfo>(await service.GetVideosInfo(Video.URL));
-                if(Videos.Count == 0)
+                var videos = await service.GetVideosInfo(Video.URL);
+               
+                if(videos.Count == 0)
                 {
                     MessageBox.Show("No se encontró ningún vídeo, revisa la URL", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    IsDisable = "Hidden";
                     return;
+                }
+                if (Videos.Count == 5)
+                {
+                    for (int i = 0; i != 5; ++i)
+                    {
+                        Videos[i].SetVideoWithOther(videos[i]);
+                        
+                    }
+                }
+                else
+                {
+                    Videos = new List<VideoInfo>(videos);
                 }
 
                 Video = Videos[0];
@@ -168,9 +177,10 @@ public class MainWindowViewModel : ViewModelBase
         {
             MessageBox.Show("Al parecer no tienes internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            MessageBox.Show("La URL está vacía", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            Debug.WriteLine(ex);
+            MessageBox.Show("La URL está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         finally
         {

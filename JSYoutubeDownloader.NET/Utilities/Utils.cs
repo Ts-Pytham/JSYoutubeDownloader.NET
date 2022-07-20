@@ -1,25 +1,20 @@
-﻿namespace JSYoutubeDownloader.NET.Utilities
+﻿namespace JSYoutubeDownloader.NET.Utilities;
+
+public static partial class Utils
 {
-    public static class Utils
+    public static string ChangeFormat(string str)
     {
-        public static string ChangeFormat(string str)
+        StringBuilder strb = new(str);
+        int len = strb.Length;
+        for (int i = 0; i != len; ++i)
         {
-            StringBuilder strb = new(str);
-            int len = strb.Length;
-            for (int i = 0; i != len; ++i)
+
+            if (strb[i] == '|' || strb[i] == 92 || strb[i] == '/' || strb[i] == ':' || strb[i] == '?' || strb[i] == '<' || strb[i] == '>' || strb[i] == '"')
             {
-
-                if (strb[i] == '|' || strb[i] == 92 || strb[i] == '/' || strb[i] == ':' || strb[i] == '?' || strb[i] == '<' || strb[i] == '>' || strb[i] == '"')
-                {
-                    strb[i] = '-';
-                }
+                strb[i] = '-';
             }
-            return strb.ToString();
         }
-
-        public static string VideoURLToEmbedURL(this Video video)
-        {
-            return $"https://www.youtube.com/embed/{video.Id}";
-        }
+        return strb.ToString();
     }
+
 }
