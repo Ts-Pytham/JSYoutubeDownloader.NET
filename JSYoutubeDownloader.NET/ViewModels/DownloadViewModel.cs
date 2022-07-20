@@ -162,8 +162,8 @@ public class DownloadViewModel : ViewModelBase
                 _ = MessageBoxAsync.Show("La ruta no existe, busque una nueva!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            string _path = $"{Path}/{Utils.ChangeFormat(_videoInfo.Title)}.{SelectedItemContainer}";
+            
+            string _path = await Utils.CheckFile($"{Path}/{Utils.ChangeFormat(_videoInfo.Title)}", SelectedItemContainer);
             
             try
             {
