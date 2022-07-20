@@ -13,8 +13,6 @@ public partial class VideoInfo : INotifyPropertyChanged
         }
         set
         {
-            if (_url == value)
-                return;
             _url = value;
             OnPropertyChanged();
         }

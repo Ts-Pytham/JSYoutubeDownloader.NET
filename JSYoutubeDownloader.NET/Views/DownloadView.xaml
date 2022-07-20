@@ -70,7 +70,7 @@
             </Border>
 
             <Border Grid.Column="1">
-                <TextBox Text="{Binding Path}"/>
+                <TextBox Text="{Binding Path, UpdateSourceTrigger=PropertyChanged}"/>
             </Border>
 
             <Border Grid.Column="2">

@@ -37,8 +37,8 @@
             <TextBox Grid.Column="0" Foreground="White" Background="#121212"
                      Padding="5, 0, 0, 0"
                      Height="40" Margin="15, 0, 15, 0" BorderBrush="#313131"
-                     VerticalContentAlignment="Center" FontSize="16" Text="{Binding Video.URL}"
-                     materialDesign:HintAssist.Hint="Buscar" Cursor="Arrow">
+                     VerticalContentAlignment="Center" FontSize="16" Text="{Binding Video.URL, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="Buscar" Cursor="Arrow" >
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyDown">

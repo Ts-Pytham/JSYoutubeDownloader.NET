@@ -1,4 +1,5 @@
-﻿using Mvvm = Microsoft.Toolkit.Mvvm.Input;
+﻿using System.Windows.Controls;
+using Mvvm = Microsoft.Toolkit.Mvvm.Input;
 
 namespace JSYoutubeDownloader.NET.ViewModels;
 
@@ -209,11 +210,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         if (e?.Key == Key.Enter)
         {
-            Task.Run(() =>
-            {
-                VideoInfoCommandExecute(e);
-            });
-            
+            VideoInfoCommandExecute(e);
         }
     }
     #endregion
