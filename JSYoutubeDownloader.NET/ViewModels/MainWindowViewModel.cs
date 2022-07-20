@@ -116,11 +116,11 @@ public class MainWindowViewModel : ViewModelBase
         }
         catch (YoutubeExplode.Exceptions.VideoUnavailableException)
         {
-            MessageBox.Show("No hay ningún vídeo para descargar!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.Show("No hay ningún vídeo para descargar!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         catch (YoutubeExplode.Exceptions.VideoUnplayableException)
         {
-            MessageBox.Show("Este vídeo contiene restricción de edad!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.Show("Este vídeo contiene restricción de edad!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         finally
         {
@@ -147,11 +147,11 @@ public class MainWindowViewModel : ViewModelBase
                
                 if(videos.Count == 0)
                 {
-                    MessageBox.Show("No se encontró ningún vídeo, revisa la URL", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _ = MessageBoxAsync.Show("No se encontró ningún vídeo, revisa la URL", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                     IsDisable = "Hidden";
                     return;
                 }
-                if (Videos.Count == 5)
+                if (Videos.Count == 5) // Si ya hay elementos en la lista, solo se reemplazará la información y no crear de nuevo la lista.
                 {
                     for (int i = 0; i != 5; ++i)
                     {
@@ -170,20 +170,22 @@ public class MainWindowViewModel : ViewModelBase
             }
             catch (System.Net.Http.HttpRequestException)
             {
-                MessageBox.Show("Es posible que no haya internet", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = MessageBoxAsync.Show("Es posible que no haya internet", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         catch (System.Net.Http.HttpRequestException)
         {
-            MessageBox.Show("Al parecer no tienes internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.Show("Al parecer no tienes internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            MessageBox.Show("La URL está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            _ = MessageBoxAsync.Show("La URL está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         finally
         {
+            
             IsIndeterminate = false; 
         }
 

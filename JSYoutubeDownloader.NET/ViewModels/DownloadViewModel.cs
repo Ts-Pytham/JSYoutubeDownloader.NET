@@ -129,7 +129,7 @@ public class DownloadViewModel : ViewModelBase
         }
         else
         {
-            MessageBox.Show("No se está descargando ningún archivo!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.Show("No se está descargando ningún archivo!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
@@ -149,12 +149,12 @@ public class DownloadViewModel : ViewModelBase
         {
             if (string.IsNullOrWhiteSpace(Path))
             {
-                MessageBox.Show("La ruta está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = MessageBoxAsync.Show("La ruta está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (!IO.Directory.Exists(Path))
             {
-                MessageBox.Show("La ruta no existe, busque una nueva!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = MessageBoxAsync.Show("La ruta no existe, busque una nueva!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -167,19 +167,19 @@ public class DownloadViewModel : ViewModelBase
                 if (SelectedItemContainer == "mp3") // Downloading Only Audio
                 {
                     await _videoService.DownloadAudio(_videoInfo, _path, _progress, _token.Token);
-                    MessageBox.Show("Se descargó correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _ = MessageBoxAsync.Show("Se descargó correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                     Duration = 0;
                 }
                 else
                 {
                     await _videoService.DownloadVideo(_stream, _videoInfo, _path, SelectedItemQuality, _progress, _token.Token);
-                    MessageBox.Show("Se descargó correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _ = MessageBoxAsync.Show("Se descargó correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                     Duration = 0;
                 }
             }
             catch (TaskCanceledException)
             {
-                MessageBox.Show("Se canceló la descarga", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                _ = MessageBoxAsync.Show("Se canceló la descarga", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                 IO.File.Delete(_path);
                 _token = new();
             }
@@ -190,7 +190,7 @@ public class DownloadViewModel : ViewModelBase
         }
         else
         {
-            MessageBox.Show("Se está descargando el archivo!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.Show("Se está descargando el archivo!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 

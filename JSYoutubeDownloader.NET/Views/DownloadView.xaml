@@ -78,13 +78,21 @@
             </Border>
         </Grid>
 
-        
-        <ProgressBar Height="20" Margin="10" Value="{Binding Duration}" Maximum="100"
-                     Style="{DynamicResource MaterialDesignLinearProgressBar}"/>
 
-        <WrapPanel HorizontalAlignment="Right" Margin="0,0,5,0">
-            <Button Content="Descargar" Background="{x:Null}" Margin="10" Cursor="Hand" Command="{Binding DownloadCommand}"/>
-            <Button Content="Cancelar" Background="{x:Null}" Cursor="Hand" Command="{Binding CancelCommand}"/>
-        </WrapPanel>
+        <Grid Margin="10, 0, 5, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
+            <ProgressBar Grid.Column="0" Height="20"  Value="{Binding Duration}" Maximum="100" Style="{DynamicResource MaterialDesignLinearProgressBar}" />
+            <Button Grid.Column="1" Content="X" Height="20" Background="{x:Null}" 
+                    Cursor="Hand" Command="{Binding CancelCommand}" Margin="5, 0, 0, 0"
+                    Padding="2"/>
+            
+        </Grid>
+
+        <Button Content="Descargar" Background="{x:Null}" Margin="120, 20, 120, 10" Cursor="Hand" Command="{Binding DownloadCommand}"/>
+
     </StackPanel>
 </Window>

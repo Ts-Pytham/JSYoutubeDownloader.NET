@@ -35,13 +35,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.43" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.0-ci172" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1264.42" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="ScrapySharp" Version="3.0.0" />
-    <PackageReference Include="YoutubeExplode" Version="6.1.2" />
-    <PackageReference Include="YoutubeExplode.Converter" Version="6.1.2" />
+    <PackageReference Include="YoutubeExplode" Version="6.2.0" />
+    <PackageReference Include="YoutubeExplode.Converter" Version="6.2.0" />
   </ItemGroup>
 
   <ItemGroup>

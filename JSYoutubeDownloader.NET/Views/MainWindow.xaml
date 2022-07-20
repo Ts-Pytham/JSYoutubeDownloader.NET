@@ -24,12 +24,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
 
             <TextBox Grid.Column="0" Foreground="White" Background="#121212"
                      Padding="5, 0, 0, 0"
-                     Height="40" Margin="20, 0, 0, 0" BorderBrush="#313131"
+                     Height="40" Margin="15, 0, 15, 0" BorderBrush="#313131"
                      VerticalContentAlignment="Center" FontSize="16" Text="{Binding Video.URL}"
                      materialDesign:HintAssist.Hint="Buscar" Cursor="Arrow"/>
             
@@ -37,7 +36,7 @@
                 <Image Source="../Icons/search.png" Width="20"/>
             </Button>
 
-            <Button Grid.Column="2" Height="40" Background="#313131" BorderBrush="#313131" Margin="0, 0, 15, 0" Command="{Binding DownloadCommand}" Cursor="Hand" >
+            <Button Grid.Column="2" Height="40" Background="#313131" BorderBrush="#313131"  Margin="0, 0, 15, 0" Command="{Binding DownloadCommand}" Cursor="Hand" >
                 <Image Source="../Icons/download.png" Width="20"/>
             </Button>
 
@@ -83,7 +82,7 @@
                 </Grid.RowDefinitions>
 
                 <wv2:WebView2 Source="{Binding Video.EmbedURL}"/>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="{Binding IsDisable}">
                     <StackPanel> <!-- Info del vídeo-->
                         <TextBox Text="{Binding Video.Title}" IsReadOnly="True"
                         FontSize="16" Margin="0, 10, 0, 10" TextWrapping="Wrap"
