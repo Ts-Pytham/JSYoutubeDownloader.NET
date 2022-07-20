@@ -2,7 +2,6 @@
 
 public partial class VideoInfo : IVideoInfo
 {
-    public string URL { get; set; }
     public string EmbedURL { get; set; }
     public string Description { get; set; }
   
@@ -12,7 +11,7 @@ public partial class VideoInfo : IVideoInfo
 
     public VideoInfo()
     {
-        URL = "";
+        _url = "";
         _title = "";
         Description = "";
         EmbedURL = "";

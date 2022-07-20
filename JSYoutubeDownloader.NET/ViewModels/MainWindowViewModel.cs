@@ -1,4 +1,6 @@
-﻿namespace JSYoutubeDownloader.NET.ViewModels;
+﻿using Mvvm = Microsoft.Toolkit.Mvvm.Input;
+
+namespace JSYoutubeDownloader.NET.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
@@ -23,8 +25,8 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
-    private List<VideoInfo> _videos;
-    public List<VideoInfo> Videos 
+    private ObservableCollection<VideoInfo> _videos;
+    public ObservableCollection<VideoInfo> Videos 
     {
         get { return _videos; } 
         set { _videos = value; OnPropertyChanged(); }
@@ -58,8 +60,12 @@ public class MainWindowViewModel : ViewModelBase
     #region Commands
     private RelayCommand? _videoInfoCommands;
     private RelayCommand? _downloadCommand;
+    private Mvvm.RelayCommand<KeyEventArgs>? _onKeyDown;
+    private Mvvm.RelayCommand<CancelEventArgs>? _windowClosing;
     public ICommand VideoInfoCommands => _videoInfoCommands ??= new RelayCommand(VideoInfoCommandExecute);
     public ICommand DownloadCommand => _downloadCommand ??= new RelayCommand(DownloadCommandExecute);
+    public ICommand WindowClosing => _windowClosing ??= new Mvvm.RelayCommand<CancelEventArgs>(WindowClosingCommandExecute);
+    public ICommand OnKeyDown => _onKeyDown ??= new Mvvm.RelayCommand<KeyEventArgs>(OnKeyDownHandler);
     #endregion
 
     public MainWindowViewModel()
@@ -161,7 +167,7 @@ public class MainWindowViewModel : ViewModelBase
                 }
                 else
                 {
-                    Videos = new List<VideoInfo>(videos);
+                    Videos = new ObservableCollection<VideoInfo>(videos);
                 }
 
                 Video = Videos[0];
@@ -179,8 +185,7 @@ public class MainWindowViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            Debug.WriteLine(ex);
-
+            Debug.WriteLine(ex.Message);
             _ = MessageBoxAsync.Show("La URL está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         finally
@@ -191,4 +196,25 @@ public class MainWindowViewModel : ViewModelBase
 
     }
 
+    #region Events
+    private void WindowClosingCommandExecute(CancelEventArgs? e)
+    {
+        if (e is null) return;
+
+        _view?.Close();
+
+    }
+
+    private void OnKeyDownHandler(KeyEventArgs? e)
+    {
+        if (e?.Key == Key.Enter)
+        {
+            Task.Run(() =>
+            {
+                VideoInfoCommandExecute(e);
+            });
+            
+        }
+    }
+    #endregion
 }

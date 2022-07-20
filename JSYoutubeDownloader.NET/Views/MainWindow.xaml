@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:viewmodel="clr-namespace:JSYoutubeDownloader.NET.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="JSYoutubeDownloader.NET" Height="800" Width="1200" Background="#181818"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -12,11 +13,18 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         materialDesign:ThemeAssist.Theme="Dark" WindowStartupLocation="CenterScreen">
     
-    <Window.Resources>
-        <viewmodel:MainWindowViewModel x:Key="MainWindowViewModel"/>
-    </Window.Resources>
+
+    <Window.DataContext>
+        <viewmodel:MainWindowViewModel/>
+    </Window.DataContext>
     
-        <DockPanel DataContext="{Binding Source={StaticResource MainWindowViewModel}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding WindowClosing}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <DockPanel>
 
         <ProgressBar DockPanel.Dock="Top" Height="2" Maximum="100" Minimum="1" IsIndeterminate="{Binding IsIndeterminate}" Foreground="Red" />
         <Grid DockPanel.Dock="Top" Background="#202020" Height="100">
@@ -30,14 +38,26 @@
                      Padding="5, 0, 0, 0"
                      Height="40" Margin="15, 0, 15, 0" BorderBrush="#313131"
                      VerticalContentAlignment="Center" FontSize="16" Text="{Binding Video.URL}"
-                     materialDesign:HintAssist.Hint="Buscar" Cursor="Arrow"/>
+                     materialDesign:HintAssist.Hint="Buscar" Cursor="Arrow">
+                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyDown">
+                        <i:InvokeCommandAction Command="{Binding OnKeyDown}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
+            </TextBox>
             
-            <Button Grid.Column="1" Height="40" Background="#313131" BorderBrush="#313131" Margin="0, 0, 15, 0" Command="{Binding VideoInfoCommands}" Cursor="Hand">
+            <Button Grid.Column="1" Height="40" Background="#313131" BorderBrush="#313131" 
+                    Margin="0, 0, 15, 0" Command="{Binding VideoInfoCommands}" Cursor="Hand">
                 <Image Source="../Icons/search.png" Width="20"/>
             </Button>
 
-            <Button Grid.Column="2" Height="40" Background="#313131" BorderBrush="#313131"  Margin="0, 0, 15, 0" Command="{Binding DownloadCommand}" Cursor="Hand" >
-                <Image Source="../Icons/download.png" Width="20"/>
+            <Button Grid.Column="2" Height="40" Background="#313131" BorderBrush="#313131"  
+                    Margin="0, 0, 15, 0" Command="{Binding DownloadCommand}" Cursor="Hand">
+                <Button.Content>
+                    <Image Source="../Icons/download.png" Width="20"/>
+                </Button.Content>
             </Button>
 
         </Grid>

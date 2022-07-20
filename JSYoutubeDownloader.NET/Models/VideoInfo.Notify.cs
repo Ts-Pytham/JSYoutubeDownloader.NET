@@ -2,6 +2,23 @@
 
 public partial class VideoInfo : INotifyPropertyChanged
 {
+
+    private string _url;
+
+    public string URL
+    {
+        get
+        {
+            return _url;
+        }
+        set
+        {
+            if (_url == value)
+                return;
+            _url = value;
+            OnPropertyChanged();
+        }
+    }
     private string _title;
     public string Title
     {
