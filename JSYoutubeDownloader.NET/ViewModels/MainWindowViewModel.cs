@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using Mvvm = Microsoft.Toolkit.Mvvm.Input;
+﻿using Mvvm = Microsoft.Toolkit.Mvvm.Input;
 
 namespace JSYoutubeDownloader.NET.ViewModels;
 
@@ -77,7 +76,7 @@ public class MainWindowViewModel : ViewModelBase
         _isDisable = "Hidden";
         Thread thread = new(CheckVersion);
         thread.Start();
-        
+
     }
 
     #region Methods
@@ -85,6 +84,8 @@ public class MainWindowViewModel : ViewModelBase
     private void CheckVersion()
     {
         string version = ConfigurationManager.AppSettings["Version"] ?? "";
+
+        if (version is "") return;
 
         HtmlWeb web = new();
         string url = "https://github.com/Ts-Pytham/JSYoutubeDownloader.NET";
@@ -142,7 +143,7 @@ public class MainWindowViewModel : ViewModelBase
             IVideoInfoService service = new VideoInfoService();
             IsIndeterminate = true;
             Video = await service.GetVideoInfo(Video.URL);
-            IsDisable = "Visible";
+            IsDisable = "Visible";    
         }
         catch (ArgumentException)
         {
@@ -207,7 +208,7 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     private void OnKeyDownHandler(KeyEventArgs? e)
-    {
+    {     
         if (e?.Key == Key.Enter)
         {
             VideoInfoCommandExecute(e);
