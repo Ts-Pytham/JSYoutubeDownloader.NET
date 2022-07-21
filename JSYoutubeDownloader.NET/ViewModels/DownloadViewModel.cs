@@ -71,13 +71,7 @@ public class DownloadViewModel : ViewModelBase
         set { _duration = value; OnPropertyChanged(); } 
     }
 
-    public string Progress
-    {
-        get { return Duration + "%"; }
-
-    }
     private bool _isEnable;
-
     public bool IsEnable
     {
         get { return _isEnable; }
@@ -121,11 +115,11 @@ public class DownloadViewModel : ViewModelBase
     private RelayCommand? _downloadCommand;
     private RelayCommand? _searchFolderCommand;
     private RelayCommand? _cancelCommand;
+    private Mvvm.RelayCommand<CancelEventArgs>? _windowClosing;
     public ICommand DownloadCommand => _downloadCommand ??= new RelayCommand(DownloadCommandExecute);
     public ICommand SearchFolderCommand => _searchFolderCommand ??= new RelayCommand(SearchFolderCommandExecute);
-
     public ICommand CancelCommand => _cancelCommand ??= new RelayCommand(CancelCommandExecute);
-
+    public ICommand WindowClosing => _windowClosing ??= new Mvvm.RelayCommand<CancelEventArgs>(WindowClosingCommandExecute);
     private void CancelCommandExecute(object obj)
     {
         if (_downloading)
@@ -206,7 +200,27 @@ public class DownloadViewModel : ViewModelBase
         }
     }
 
-
     #endregion
 
+    #region events commands
+    private void WindowClosingCommandExecute(CancelEventArgs? e)
+    {
+        if (e is null) return;
+
+        if(_downloading is true)
+        {
+            var result = MessageBox.Show("Se está descargando el archivo, ¿quieres cerrar? Recuerda que si cierras ahora se perderá el progreso de la descarga.", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            
+            if(result == MessageBoxResult.Yes)
+            {
+                _token.Cancel();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+    }
+    #endregion
 }

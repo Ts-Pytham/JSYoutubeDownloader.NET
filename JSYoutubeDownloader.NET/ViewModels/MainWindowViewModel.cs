@@ -1,6 +1,4 @@
-﻿using Mvvm = Microsoft.Toolkit.Mvvm.Input;
-
-namespace JSYoutubeDownloader.NET.ViewModels;
+﻿namespace JSYoutubeDownloader.NET.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
