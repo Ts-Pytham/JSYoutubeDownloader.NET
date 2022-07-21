@@ -1,4 +1,5 @@
 ﻿global using Author = JSYoutubeDownloader.NET.Models.Author;
+global using Mvvm = Microsoft.Toolkit.Mvvm.Input;
 global using IO = System.IO;
 global using JSYoutubeDownloader.NET.Commands;
 global using JSYoutubeDownloader.NET.Models;

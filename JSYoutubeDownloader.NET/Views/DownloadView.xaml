@@ -9,10 +9,15 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="16"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         materialDesign:ThemeAssist.Theme="Dark" WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
 
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding WindowClosing}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <StackPanel>
 
         <Grid Margin="0, 0, 0, 20">
