@@ -1,6 +1,6 @@
 <h1> JSYoutubeDownloader.NET </h1>
 
-[![Version](https://img.shields.io/badge/Versi%C3%B3n-1.2-red)](https://github.com/Ts-Pytham/JSYoutubeDownloader.NET/releases/tag/v1.2)[![Donaciones](https://img.shields.io/badge/Donaciones-$$$-blue)](https://paypal.me/johansanchezdl?locale.x=es_XC)[![YoutubeExplode](https://img.shields.io/badge/YoutubeExplode-6.1.2-Green)](https://github.com/Tyrrrz/YoutubeExplode)
+[![Version](https://img.shields.io/badge/Versi%C3%B3n-1.5-red)](https://github.com/Ts-Pytham/JSYoutubeDownloader.NET/releases/tag/v1.5)[![Donaciones](https://img.shields.io/badge/Donaciones-$$$-blue)](https://paypal.me/johansanchezdl?locale.x=es_XC)[![YoutubeExplode](https://img.shields.io/badge/YoutubeExplode-6.1.2-Green)](https://github.com/Tyrrrz/YoutubeExplode)
 
 <p> 
   JSYoutubeDownloader.Net es un programa hecho en C# para descargar vídeos de youtube en formato WebM (la descarga es muy lenta comparada a MP4), mp4 y mp3.
