@@ -81,6 +81,9 @@ public class DownloadViewModel : ViewModelBase
     private bool _downloading;
 
     private CancellationTokenSource _token;
+
+
+    private bool _paused = false;
     #endregion
 
 

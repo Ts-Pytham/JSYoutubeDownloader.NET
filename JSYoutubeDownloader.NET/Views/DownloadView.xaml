@@ -88,6 +88,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -95,10 +96,15 @@
                 <TextBlock Text="{Binding Duration, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Grid>
             
-            <Button Grid.Column="1" Content="X" Height="20" Background="{x:Null}" 
+            <Button Grid.Column="2" Content="X" Height="20" Background="{x:Null}" 
                     Cursor="Hand" Command="{Binding CancelCommand}" Margin="5, 0, 0, 0"
                     Padding="2"/>
-            
+
+            <Button Grid.Column="1" Height="20" Background="{x:Null}" 
+                    Cursor="Hand" Command="{Binding CancelCommand}" Margin="5, 0, 0, 0"
+                    Padding="2">
+                <Image Source="/Icons/play.png"/>
+            </Button>
         </Grid>
 
         <Button Content="Descargar" Background="{x:Null}" Margin="120, 20, 120, 10" Cursor="Hand" Command="{Binding DownloadCommand}"/>

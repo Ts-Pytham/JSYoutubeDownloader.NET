@@ -13,6 +13,8 @@
     <None Remove="Icons\download.png" />
     <None Remove="Icons\like.png" />
     <None Remove="Icons\logo.ico" />
+    <None Remove="Icons\pause.png" />
+    <None Remove="Icons\play.png" />
     <None Remove="Icons\search.png" />
   </ItemGroup>
 
@@ -27,6 +29,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\logo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\pause.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\play.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\search.png">

@@ -90,7 +90,6 @@ public class MainWindowViewModel : ViewModelBase
         var doc = web.Load(url);
 
         var data = doc.DocumentNode.CssSelect(".ml-2").CssSelect(".css-truncate").First().InnerHtml;
-        
         if(data != version)
         {
             var msg = MessageBox.Show("La versión es diferente, puede descargar la nueva versión en la web.",
