@@ -87,20 +87,29 @@ public class MainWindowViewModel : ViewModelBase
 
         HtmlWeb web = new();
         string url = "https://github.com/Ts-Pytham/JSYoutubeDownloader.NET";
-        var doc = web.Load(url);
-
-        var data = doc.DocumentNode.CssSelect(".ml-2").CssSelect(".css-truncate").First().InnerHtml;
-        if(data != version)
+        try
         {
-            var msg = MessageBox.Show("La versión es diferente, puede descargar la nueva versión en la web.",
-                             "Información",MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            var doc = web.Load(url);
 
-            if (msg == MessageBoxResult.OK)
+            var data = doc.DocumentNode.CssSelect(".ml-2").CssSelect(".css-truncate").First().InnerHtml;
+            if (data != version)
             {
-                string argument = $"/c start {url}/releases/tag/{data.ToLower()}";
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("cmd", argument) { CreateNoWindow = true });
+                var msg = MessageBox.Show("La versión es diferente, puede descargar la nueva versión en la web.",
+                                 "Información", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+
+                if (msg == MessageBoxResult.OK)
+                {
+                    string argument = $"/c start {url}/releases/tag/{data.ToLower()}";
+                    System.Diagnostics.Process.Start(new ProcessStartInfo("cmd", argument) { CreateNoWindow = true });
+                }
             }
         }
+        catch (System.Net.WebException)
+        {
+            MessageBox.Show("No tienes internet para comprobar la última versión de la aplicación.",
+                            "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
     }
     #endregion
 
@@ -175,7 +184,7 @@ public class MainWindowViewModel : ViewModelBase
             }
             catch (System.Net.Http.HttpRequestException)
             {
-                _ = MessageBoxAsync.Show("Es posible que no haya internet", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = MessageBoxAsync.Show("Es posible que no haya internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         catch (System.Net.Http.HttpRequestException)
