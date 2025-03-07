@@ -1,13 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Icons\dislike.png" />
     <None Remove="Icons\download.png" />
@@ -17,7 +15,6 @@
     <None Remove="Icons\play.png" />
     <None Remove="Icons\search.png" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="Icons\dislike.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -41,7 +38,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.43" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.0-ci172" />
@@ -54,9 +50,7 @@
     <PackageReference Include="YoutubeExplode" Version="6.2.0" />
     <PackageReference Include="YoutubeExplode.Converter" Version="6.2.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
 </Project>

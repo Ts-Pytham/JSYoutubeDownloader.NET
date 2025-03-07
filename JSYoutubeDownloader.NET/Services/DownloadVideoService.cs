@@ -6,24 +6,40 @@ namespace JSYoutubeDownloader.NET.Services;
 
 internal class DownloadVideoService : IDownloadVideoService
 {
-    public async Task DownloadAudio(VideoInfo video, string path, IProgress<double> progress, CancellationToken token)
+    public async Task DownloadAudioAsync(
+        VideoInfo video, 
+        string path, 
+        IProgress<double> progress, 
+        CancellationToken token)
     {
         YoutubeClient client = new();
 
         var bytesImage = await GetImageBytesAsnyc(video.Thumbnail);
 
-        await client.Videos.DownloadAsync(video.Id, path, p => p.SetContainer("mp3").SetPreset(ConversionPreset.UltraFast), progress, token);
-        DownloadPicture(path, bytesImage);
+        await client.Videos.DownloadAsync(video.Id, path, 
+            p => p.SetContainer("mp3")
+            .SetPreset(ConversionPreset.UltraFast), progress, token);
+
+        DownloadPictureAsync(path, bytesImage);
     }
 
-    public async Task DownloadVideo(StreamManifest stream, VideoInfo video, string path, string quality, IProgress<double> progress, CancellationToken token)
+    public async Task DownloadVideoAsync(
+        StreamManifest stream,
+        VideoInfo video, 
+        string path, 
+        string quality, 
+        IProgress<double> progress, 
+        CancellationToken token)
     {
         YoutubeClient client = new();
 
-        var videoStreamInfo = stream.GetVideoOnlyStreams().First(s => s.VideoQuality.Label == quality);
-        var audioStreamInfo = stream.GetAudioOnlyStreams().GetWithHighestBitrate();
+        var videoStreamInfo = stream.GetVideoOnlyStreams()
+            .First(s => s.VideoQuality.Label == quality);
 
-        var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
+        var audioStreamInfo = stream.GetAudioOnlyStreams()
+            .GetWithHighestBitrate();
+
+        IStreamInfo[] streamInfos = [audioStreamInfo, videoStreamInfo];
         
         await client.Videos.DownloadAsync(
             streamInfos, new ConversionRequestBuilder(path)
@@ -32,7 +48,7 @@ internal class DownloadVideoService : IDownloadVideoService
 
     }
 
-    private static void DownloadPicture(string path, byte[] imageBytes)
+    private static void DownloadPictureAsync(string path, byte[] imageBytes)
     {
         var file = TagLib.File.Create(path);
 
@@ -44,7 +60,7 @@ internal class DownloadVideoService : IDownloadVideoService
         imageBytes = ms.ToArray();
 
         TagLib.Picture picture = new(new TagLib.ByteVector(imageBytes));
-        file.Tag.Pictures = new TagLib.IPicture[] { picture };
+        file.Tag.Pictures = [picture];
 
         file.Save();
     }
@@ -53,6 +69,7 @@ internal class DownloadVideoService : IDownloadVideoService
     {
         using HttpClient client = new();
         using HttpResponseMessage response = await client.GetAsync(img);
+
         if (response.IsSuccessStatusCode)
             return await response.Content.ReadAsByteArrayAsync();
         else

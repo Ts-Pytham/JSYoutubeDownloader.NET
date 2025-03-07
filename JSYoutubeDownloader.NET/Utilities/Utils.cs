@@ -2,20 +2,13 @@
 
 public static partial class Utils
 {
-    private struct FullPath
+    private struct FullPath(string path, string format)
     {
-        public string Path { get; }
-        public long Number { get; private set; }
-        public string Format { get; }
+        public string Path { get; } = path;
+        public long Number { get; private set; } = 0;
+        public string Format { get; } = format;
 
-        public FullPath(string path, string format)
-        {
-            Path = path;
-            Format = format;
-            Number = 0;
-        }
-
-        public override string ToString()
+        public override readonly string ToString()
         {
             return Number == 0 ? $"{Path}.{Format}" : $"{Path}({Number}).{Format}";
         }
@@ -30,18 +23,21 @@ public static partial class Utils
     {
         StringBuilder strb = new(str);
         int len = strb.Length;
+
         for (int i = 0; i != len; ++i)
         {
+            var c = strb[i];
 
-            if (strb[i] == '|' || strb[i] == 92 || strb[i] == '/' || strb[i] == ':' || strb[i] == '?' || strb[i] == '<' || strb[i] == '>' || strb[i] == '"')
+            if (c == '|' || c == 92 || c == '/' || c == ':' || c == '?' || c == '<' || c == '>' || c == '"')
             {
                 strb[i] = '-';
             }
         }
+
         return strb.ToString();
     }
 
-    public static async Task<string> CheckFile(string path, string container)
+    public static async Task<string> CheckFileAsync(string path, string container)
     {
 
         FullPath fullPath = new(path.ToString(), container);
@@ -52,15 +48,14 @@ public static partial class Utils
             $"Si seleccionas la opción 'Si' se le agregará un número, ejemplo: {fullPath}.\n" +
             "Si seleccionas la opción 'No' se reemplazará el archivo actual.";
 
-            var result = await MessageBoxAsync.Show(message, "Información", MessageBoxButton.YesNo, MessageBoxImage.Information);
-            if(result == MessageBoxResult.Yes)
+            var result = await MessageBoxAsync.ShowAsync(message, "Información", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result is MessageBoxResult.Yes)
             {
                 fullPath.ChangePath();
             }
             else
-            {
                 break;
-            }
         }
 
         return fullPath.ToString();

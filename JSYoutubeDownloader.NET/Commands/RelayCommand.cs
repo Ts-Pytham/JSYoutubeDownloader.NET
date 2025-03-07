@@ -1,10 +1,10 @@
 ﻿namespace JSYoutubeDownloader.NET.Commands;
 
-internal class RelayCommand : ICommand
+internal class RelayCommand(Action<object> execute, Func<object, bool>? canExecute = null) : ICommand
 {
-    private readonly Action<object> _execute;
+    private readonly Action<object> _execute = execute;
 
-    private readonly Func<object, bool>? _canExecute;
+    private readonly Func<object, bool>? _canExecute = canExecute;
 
     public event EventHandler? CanExecuteChanged
     {
@@ -12,25 +12,12 @@ internal class RelayCommand : ICommand
         remove { CommandManager.RequerySuggested -= value; }
     }
 
-    public RelayCommand(Action<object> execute)
-    {
-        _execute = execute;
-        _canExecute = null;
-    }
-
-    public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
-    {
-        _execute = execute;
-        _canExecute = canExecute;
-    }
-
-    
     public bool CanExecute(object? parameter)
     {
-        if (parameter == null)
+        if (parameter is null)
             return true;
 
-        return _canExecute == null || CanExecute(parameter);
+        return _canExecute is null || CanExecute(parameter);
     }
 
     public void Execute(object? parameter)

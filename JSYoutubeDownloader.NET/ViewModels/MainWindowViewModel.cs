@@ -119,7 +119,7 @@ public class MainWindowViewModel : ViewModelBase
         try
         {
             IsIndeterminate = true;
-            DownloadViewModel vm = await DownloadViewModel.Load(Video);
+            DownloadViewModel vm = await DownloadViewModel.LoadAsync(Video);
 
             if (_view == null || PresentationSource.FromVisual(_view) == null)
             {
@@ -130,11 +130,11 @@ public class MainWindowViewModel : ViewModelBase
         }
         catch (YoutubeExplode.Exceptions.VideoUnavailableException)
         {
-            _ = MessageBoxAsync.Show("No hay ningún vídeo para descargar!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.ShowAsync("No hay ningún vídeo para descargar!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         catch (YoutubeExplode.Exceptions.VideoUnplayableException)
         {
-            _ = MessageBoxAsync.Show("Este vídeo contiene restricción de edad!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.ShowAsync("Este vídeo contiene restricción de edad!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         finally
         {
@@ -148,7 +148,7 @@ public class MainWindowViewModel : ViewModelBase
         {
             IVideoInfoService service = new VideoInfoService();
             IsIndeterminate = true;
-            Video = await service.GetVideoInfo(Video.URL);
+            Video = await service.GetVideoInfoAsync(Video.URL);
             IsDisable = "Visible";    
         }
         catch (ArgumentException)
@@ -157,11 +157,11 @@ public class MainWindowViewModel : ViewModelBase
             {
                 IVideoInfoService service = new VideoInfoService();
                 IsIndeterminate = true;
-                var videos = await service.GetVideosInfo(Video.URL);
+                var videos = await service.GetVideosInfoAsync(Video.URL);
                
                 if(videos.Count == 0)
                 {
-                    _ = MessageBoxAsync.Show("No se encontró ningún vídeo, revisa la URL", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _ = MessageBoxAsync.ShowAsync("No se encontró ningún vídeo, revisa la URL", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                     IsDisable = "Hidden";
                     return;
                 }
@@ -184,17 +184,17 @@ public class MainWindowViewModel : ViewModelBase
             }
             catch (System.Net.Http.HttpRequestException)
             {
-                _ = MessageBoxAsync.Show("Es posible que no haya internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = MessageBoxAsync.ShowAsync("Es posible que no haya internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         catch (System.Net.Http.HttpRequestException)
         {
-            _ = MessageBoxAsync.Show("Al parecer no tienes internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.ShowAsync("Al parecer no tienes internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            _ = MessageBoxAsync.Show("La URL está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.ShowAsync("La URL está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         finally
         {

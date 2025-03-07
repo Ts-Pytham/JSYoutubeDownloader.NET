@@ -3,7 +3,7 @@
 internal class VideoInfoService : IVideoInfoService
 {
     
-    public async Task<VideoInfo> GetVideoInfo(string URL)
+    public async Task<VideoInfo> GetVideoInfoAsync(string URL)
     {
         if (string.IsNullOrEmpty(URL))
             throw new Exception("La URL está vacía");
@@ -20,48 +20,62 @@ internal class VideoInfoService : IVideoInfoService
         
     }
 
-    public async Task<List<VideoInfo>> GetVideosInfo(string word)
+    public async Task<List<VideoInfo>> GetVideosInfoAsync(string word)
     {
         YoutubeClient client = new();
 
-        List<VideoInfo> videosInfo = new();
+        List<VideoInfo> videosInfo = [];
         var results = await client.Search.GetVideosAsync(word).CollectAsync(5);
         foreach(var result in results)
         {
             var video = await client.Videos.GetAsync(result.Url);
             
             var channel = await client.Channels.GetAsync(video.Author.ChannelId);
+
             VideoInfo info = video;
-            
             info.Author = new Author(channel);
+
             videosInfo.Add(info);
         }
 
         return videosInfo;
     }
 
-    public async Task<List<dynamic>> GetQualities(VideoId id)
+    public async Task<List<dynamic>> GetQualitiesAsync(VideoId id)
     {
         YoutubeClient youtube = new();
         StreamManifest stream = await youtube.Videos.Streams.GetManifestAsync(id);
-        List<dynamic> list = new()
-        {
-            stream.GetVideoStreams().Select(x => x.VideoQuality.Label).Distinct().OrderByDescending(x => x).ToList(),
+
+        List<dynamic> list =
+        [
+            stream.GetVideoStreams()
+            .Select(x => x.VideoQuality.Label)
+            .Distinct()
+            .OrderByDescending(x => x)
+            .ToList(),
+
             stream
-        };
+        ];
 
         return list;    
     }
 
-    public async Task<List<dynamic>> GetContainers(VideoId id)
+    public async Task<List<dynamic>> GetContainersAsync(VideoId id)
     {
         YoutubeClient youtube = new();
         StreamManifest stream = await youtube.Videos.Streams.GetManifestAsync(id);
-        List<dynamic> list = new()
-        {
-            stream.GetVideoStreams().Where(x => x.Container.Name != "3gpp").Select(x => x.Container.Name).Distinct().Append("mp3").OrderByDescending(x => x).ToList(),
+        List<dynamic> list =
+        [
+            stream.GetVideoStreams()
+            .Where(x => x.Container.Name != "3gpp")
+            .Select(x => x.Container.Name)
+            .Distinct()
+            .Append("mp3")
+            .OrderByDescending(x => x)
+            .ToList(),
+
             stream
-        };
+        ];
         return list;
     }
 }

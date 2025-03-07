@@ -6,7 +6,7 @@ public class DownloadViewModel : ViewModelBase
 
     private readonly VideoInfo _videoInfo;
 
-    private readonly IDownloadVideoService _videoService;
+    private readonly DownloadVideoService _videoService;
 
     private readonly IProgress<double> _progress;
 
@@ -83,7 +83,7 @@ public class DownloadViewModel : ViewModelBase
     private CancellationTokenSource _token;
 
 
-    private bool _paused = false;
+    private readonly bool _paused = false;
     #endregion
 
 
@@ -103,12 +103,12 @@ public class DownloadViewModel : ViewModelBase
         _downloading = false;
     }
 
-    public static async Task<DownloadViewModel> Load(VideoInfo video)
+    public static async Task<DownloadViewModel> LoadAsync(VideoInfo video)
     {
-        IVideoInfoService service = new VideoInfoService();
-        var _containers = await service.GetContainers(video.Id);
+        VideoInfoService service = new();
+        var _containers = await service.GetContainersAsync(video.Id);
 
-        var _qualities = await service.GetQualities(video.Id);
+        var _qualities = await service.GetQualitiesAsync(video.Id);
         return new DownloadViewModel(video, _containers[0], _qualities[0], _containers[1]);
 
     }
@@ -123,6 +123,7 @@ public class DownloadViewModel : ViewModelBase
     public ICommand SearchFolderCommand => _searchFolderCommand ??= new RelayCommand(SearchFolderCommandExecute);
     public ICommand CancelCommand => _cancelCommand ??= new RelayCommand(CancelCommandExecute);
     public ICommand WindowClosing => _windowClosing ??= new Mvvm.RelayCommand<CancelEventArgs>(WindowClosingCommandExecute);
+
     private void CancelCommandExecute(object obj)
     {
         if (_downloading)
@@ -131,7 +132,11 @@ public class DownloadViewModel : ViewModelBase
         }
         else
         {
-            _ = MessageBoxAsync.Show("No se está descargando ningún archivo!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.ShowAsync(
+                "No se está descargando ningún archivo!", 
+                "Advertencia", 
+                MessageBoxButton.OK, 
+                MessageBoxImage.Warning);
         }
     }
 
@@ -139,7 +144,7 @@ public class DownloadViewModel : ViewModelBase
     {
         VistaFolderBrowserDialog dialog = new();
 
-        if (dialog.ShowDialog() == true)
+        if (dialog.ShowDialog() is true)
         {
             Path = dialog.SelectedPath;
         }
@@ -147,20 +152,36 @@ public class DownloadViewModel : ViewModelBase
 
     private async void DownloadCommandExecute(object obj)
     {
-        if (!_downloading)
+        if (_downloading is true)
+        {
+            _ = MessageBoxAsync.ShowAsync(
+                "Se está descargando el archivo!", 
+                "Advertencia", 
+                MessageBoxButton.OK, 
+                MessageBoxImage.Warning);
+        }
+        else
         {
             if (string.IsNullOrWhiteSpace(Path))
             {
-                _ = MessageBoxAsync.Show("La ruta está vacía!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = MessageBoxAsync.ShowAsync(
+                    "La ruta está vacía!", 
+                    "Advertencia", 
+                    MessageBoxButton.OK, 
+                    MessageBoxImage.Warning);
                 return;
             }
             if (!IO.Directory.Exists(Path))
             {
-                _ = MessageBoxAsync.Show("La ruta no existe, busque una nueva!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = MessageBoxAsync.ShowAsync(
+                    "La ruta no existe, busque una nueva!", 
+                    "Advertencia", 
+                    MessageBoxButton.OK, 
+                    MessageBoxImage.Warning);
                 return;
             }
             
-            string _path = await Utils.CheckFile($"{Path}/{Utils.ChangeFormat(_videoInfo.Title)}", SelectedItemContainer);
+            string _path = await Utils.CheckFileAsync($"{Path}/{Utils.ChangeFormat(_videoInfo.Title)}", SelectedItemContainer);
             
             try
             {
@@ -168,23 +189,41 @@ public class DownloadViewModel : ViewModelBase
 
                 if (SelectedItemContainer == "mp3") // Downloading Only Audio
                 {
-                    await _videoService.DownloadAudio(_videoInfo, _path, _progress, _token.Token);
-                    _ = MessageBoxAsync.Show("Se descargó correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //Duration = 0;
+                    await _videoService.DownloadAudioAsync(_videoInfo, _path, _progress, _token.Token);
+                    
+                    _ = MessageBoxAsync.ShowAsync(
+                        "Se descargó correctamente", 
+                        "Información",
+                        MessageBoxButton.OK, 
+                        MessageBoxImage.Information);
                 }
                 else
                 {
-                    await _videoService.DownloadVideo(_stream, _videoInfo, _path, SelectedItemQuality, _progress, _token.Token);
-                    _ = MessageBoxAsync.Show("Se descargó correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //Duration = 0;
+                    await _videoService.DownloadVideoAsync(
+                        _stream, _videoInfo, 
+                        _path, SelectedItemQuality, 
+                        _progress, 
+                        _token.Token);
+                    
+                    _ = MessageBoxAsync.ShowAsync(
+                        "Se descargó correctamente", 
+                        "Información", 
+                        MessageBoxButton.OK, 
+                        MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
                 if (ex is OperationCanceledException || ex is TaskCanceledException)
                 {
-                    _ = MessageBoxAsync.Show("Se canceló la descarga", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _ = MessageBoxAsync.ShowAsync(
+                        "Se canceló la descarga", 
+                        "Información", 
+                        MessageBoxButton.OK, 
+                        MessageBoxImage.Information);
+
                     IO.File.Delete(_path);
+
                     _token = new();
                 }
                 else
@@ -197,10 +236,6 @@ public class DownloadViewModel : ViewModelBase
                 _downloading = false;
             }
         }
-        else
-        {
-            _ = MessageBoxAsync.Show("Se está descargando el archivo!", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
     }
 
     #endregion
@@ -212,9 +247,14 @@ public class DownloadViewModel : ViewModelBase
 
         if(_downloading is true)
         {
-            var result = MessageBox.Show("Se está descargando el archivo, ¿quieres cerrar? Recuerda que si cierras ahora se perderá el progreso de la descarga.", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show(
+                "Se está descargando el archivo, ¿quieres cerrar? Recuerda que si cierras ahora " +
+                "se perderá el progreso de la descarga.", 
+                "Advertencia", 
+                MessageBoxButton.YesNo, 
+                MessageBoxImage.Warning);
             
-            if(result == MessageBoxResult.Yes)
+            if(result is MessageBoxResult.Yes)
             {
                 _token.Cancel();
             }

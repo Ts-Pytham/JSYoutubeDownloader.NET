@@ -1,19 +1,18 @@
-﻿namespace JSYoutubeDownloader.NET.ViewModels
+﻿namespace JSYoutubeDownloader.NET.ViewModels;
+
+public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyChanging
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyChanging
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangingEventHandler? PropertyChanging;
+
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public event PropertyChangingEventHandler? PropertyChanging;
+  
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-      
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected void OnPropertyChanging([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
-        }
+    protected void OnPropertyChanging([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
     }
 }
