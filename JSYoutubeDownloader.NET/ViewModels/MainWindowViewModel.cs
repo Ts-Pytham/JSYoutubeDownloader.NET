@@ -91,16 +91,24 @@ public class MainWindowViewModel : ViewModelBase
         {
             var doc = web.Load(url);
 
-            var data = doc.DocumentNode.CssSelect(".ml-2").CssSelect(".css-truncate").First().InnerHtml;
+            var data = doc.DocumentNode
+                .CssSelect(".ml-2")
+                .CssSelect(".css-truncate")
+                .First()
+                .InnerHtml;
+
             if (data != version)
             {
-                var msg = MessageBox.Show("La versión es diferente, puede descargar la nueva versión en la web.",
-                                 "Información", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                var msg = MessageBox.Show(
+                    "La versión es diferente, puede descargar la nueva versión en la web."
+                    ,"Información", 
+                    MessageBoxButton.OKCancel, 
+                    MessageBoxImage.Information);
 
-                if (msg == MessageBoxResult.OK)
+                if (msg is MessageBoxResult.OK)
                 {
                     string argument = $"/c start {url}/releases/tag/{data.ToLower()}";
-                    System.Diagnostics.Process.Start(new ProcessStartInfo("cmd", argument) { CreateNoWindow = true });
+                    Process.Start(new ProcessStartInfo("cmd", argument) { CreateNoWindow = true });
                 }
             }
         }
@@ -146,7 +154,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            IVideoInfoService service = new VideoInfoService();
+            VideoInfoService service = new();
             IsIndeterminate = true;
             Video = await service.GetVideoInfoAsync(Video.URL);
             IsDisable = "Visible";    
@@ -155,22 +163,26 @@ public class MainWindowViewModel : ViewModelBase
         {
             try
             {
-                IVideoInfoService service = new VideoInfoService();
                 IsIndeterminate = true;
-                var videos = await service.GetVideosInfoAsync(Video.URL);
+                var videos = await new VideoInfoService().GetVideosInfoAsync(Video.URL);
                
                 if(videos.Count == 0)
                 {
-                    _ = MessageBoxAsync.ShowAsync("No se encontró ningún vídeo, revisa la URL", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _ = MessageBoxAsync.ShowAsync(
+                        "No se encontró ningún vídeo, revisa la URL", 
+                        "Advertencia", 
+                        MessageBoxButton.OK, 
+                        MessageBoxImage.Warning);
+
                     IsDisable = "Hidden";
+
                     return;
                 }
                 if (Videos.Count == 5) // Si ya hay elementos en la lista, solo se reemplazará la información y no crear de nuevo la lista.
                 {
                     for (int i = 0; i != 5; ++i)
                     {
-                        Videos[i].SetVideoWithOther(videos[i]);
-                        
+                        Videos[i].SetVideoWithOther(videos[i]);             
                     }
                 }
                 else
@@ -184,12 +196,19 @@ public class MainWindowViewModel : ViewModelBase
             }
             catch (System.Net.Http.HttpRequestException)
             {
-                _ = MessageBoxAsync.ShowAsync("Es posible que no haya internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = MessageBoxAsync.ShowAsync(
+                    "Es posible que no haya internet, intenta conectarte", "Advertencia", 
+                    MessageBoxButton.OK, 
+                    MessageBoxImage.Warning);
             }
         }
         catch (System.Net.Http.HttpRequestException)
         {
-            _ = MessageBoxAsync.ShowAsync("Al parecer no tienes internet, intenta conectarte", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _ = MessageBoxAsync.ShowAsync(
+                "Al parecer no tienes internet, intenta conectarte", 
+                "Advertencia", 
+                MessageBoxButton.OK, 
+                MessageBoxImage.Warning);
         }
         catch (Exception ex)
         {
@@ -198,7 +217,6 @@ public class MainWindowViewModel : ViewModelBase
         }
         finally
         {
-            
             IsIndeterminate = false; 
         }
 
