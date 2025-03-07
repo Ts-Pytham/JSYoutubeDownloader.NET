@@ -50,6 +50,7 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="ScrapySharp" Version="3.0.0" />
+    <PackageReference Include="TagLibSharp" Version="2.3.0" />
     <PackageReference Include="YoutubeExplode" Version="6.2.0" />
     <PackageReference Include="YoutubeExplode.Converter" Version="6.2.0" />
   </ItemGroup>
