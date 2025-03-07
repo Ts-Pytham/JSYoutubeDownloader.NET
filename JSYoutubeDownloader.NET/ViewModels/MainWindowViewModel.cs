@@ -69,12 +69,12 @@ public class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         _video = new VideoInfo();
-        _videos = new();
+        _videos = [];
        _isIndeterminate = false;
         _isDisable = "Hidden";
+
         Thread thread = new(CheckVersion);
         thread.Start();
-
     }
 
     #region Methods
