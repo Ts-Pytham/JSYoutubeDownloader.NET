@@ -226,6 +226,14 @@ public class DownloadViewModel : ViewModelBase
 
                     _token = new();
                 }
+                if(ex is System.ComponentModel.Win32Exception)
+                {
+                    _ = MessageBoxAsync.ShowAsync(
+                        "No se puede descargar el archivo, no se encuentra la ruta del ffmpeg.",
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
                 else
                 {
                     Debug.WriteLine(ex);
@@ -234,6 +242,7 @@ public class DownloadViewModel : ViewModelBase
             finally
             {
                 _downloading = false;
+                _progress.Report(0);
             }
         }
     }
